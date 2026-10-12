@@ -1,0 +1,95 @@
+# Pages CMS configuration (https://pagescms.org/docs/configuration/)
+# Each section of the site is a JSON file in /data that admins edit with simple forms.
+media:
+  input: img/uploads
+  output: /img/uploads
+  categories: [image]
+
+content:
+  - name: news
+    label: News
+    type: file
+    path: data/news.json
+    format: json
+    list: true
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: date, label: Date, type: date, required: true, options: { format: "yyyy-MM-dd" } }
+      - { name: image, label: Photo, type: image }
+      - { name: body, label: Story, type: rich-text }
+
+  - name: gigs
+    label: Gigs
+    type: file
+    path: data/gigs.json
+    format: json
+    list: true
+    fields:
+      - { name: date, label: Date, type: date, required: true, options: { format: "yyyy-MM-dd" }, description: "Shows before today move to Past automatically. For a TBA month, pick the 1st." }
+      - { name: display, label: "Date text (optional)", type: string, description: "e.g. March 2027 (TBA). Leave blank to show the date." }
+      - { name: venue, label: Venue, type: string, required: true }
+      - { name: city, label: "City / address", type: string }
+      - { name: with, label: "With (other bands)", type: string }
+      - { name: tba, label: "Date not confirmed (TBA)", type: boolean }
+      - { name: note, label: Note, type: string }
+
+  - name: gallery
+    label: Photo Gallery
+    type: file
+    path: data/gallery.json
+    format: json
+    list: true
+    fields:
+      - { name: image, label: Photo, type: image, required: true }
+      - { name: caption, label: Caption, type: string }
+      - { name: alt, label: "Describe the photo (for screen readers)", type: string }
+
+  - name: merch
+    label: Merch
+    type: file
+    path: data/merch.json
+    format: json
+    list: true
+    fields:
+      - { name: title, label: Item name, type: string, required: true }
+      - { name: description, label: Short description, type: string }
+      - { name: price, label: "Price (as shown on the vendor's page)", type: string }
+      - { name: image, label: Photo, type: image }
+      - { name: url, label: "Vendor product page link", type: string }
+      - { name: vendor, label: "Vendor name (shown as Buy on …)", type: string }
+      - { name: note, label: "Note / TODO", type: string }
+      - { name: available, label: "Show Buy button (on sale online)", type: boolean }
+
+  - name: members
+    label: Band Members
+    type: file
+    path: data/members.json
+    format: json
+    list: true
+    fields:
+      - { name: name, label: Name, type: string, required: true }
+      - { name: role, label: Role, type: string }
+      - { name: photo, label: Headshot (square), type: image }
+      - { name: bio, label: Bio, type: text }
+      - { name: todo, label: "TODO note (leave blank when done)", type: string }
+
+  - name: releases
+    label: Releases
+    type: file
+    path: data/releases.json
+    format: json
+    list: true
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: year, label: Year, type: number, required: true }
+      - name: type
+        label: Type
+        type: select
+        options: { values: [album, ep] }
+      - { name: cover, label: Cover art, type: image }
+      - { name: note, label: "Note (e.g. 10 songs · NEW)", type: string }
+      - { name: link, label: Listen link, type: string }
+      - name: logo_position
+        label: "EP logo tile (only for the 4 logo EPs)"
+        type: select
+        options: { values: [none, top-left, top-right, bottom-left, bottom-right] }

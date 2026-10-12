@@ -1,0 +1,6 @@
+# screenshots and build artifacts (not part of the site)
+desk-*.png
+shot-*.png
+*.zip
+.DS_Store
+Thumbs.db

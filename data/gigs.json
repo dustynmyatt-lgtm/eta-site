@@ -1,0 +1,20 @@
+[
+ {
+  "date": "2026-10-10",
+  "display": "Sat, Oct 10, 2026",
+  "venue": "For the Record",
+  "city": "Beaumont, TX (999 Calder Ave)",
+  "with": "Zegovia, Psycho Jenni",
+  "tba": false,
+  "note": ""
+ },
+ {
+  "date": "2027-03-01",
+  "display": "March 2027 (TBA)",
+  "venue": "Springstock",
+  "city": "Houston, TX",
+  "with": "",
+  "tba": true,
+  "note": "Date and lineup TBA"
+ }
+]

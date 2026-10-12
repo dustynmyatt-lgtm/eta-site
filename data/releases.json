@@ -1,0 +1,83 @@
+[
+ {
+  "title": "Knockout",
+  "year": 2026,
+  "type": "album",
+  "cover": "img/covers/knockout.jpg",
+  "note": "10 songs \u00b7 NEW",
+  "link": "https://music.apple.com/us/artist/east-texas-adrenaline/1208255914",
+  "logo_position": "none"
+ },
+ {
+  "title": "Flossing of Society",
+  "year": 2021,
+  "type": "album",
+  "cover": "img/covers/flossing-of-society.jpg",
+  "note": "",
+  "link": "https://music.apple.com/us/artist/east-texas-adrenaline/1208255914",
+  "logo_position": "none"
+ },
+ {
+  "title": "Built to Last",
+  "year": 2018,
+  "type": "album",
+  "cover": "img/covers/built-to-last.jpg",
+  "note": "",
+  "link": "https://easttexasadrenaline.bandcamp.com/album/built-to-last",
+  "logo_position": "none"
+ },
+ {
+  "title": "East Texas Adrenaline",
+  "year": 2017,
+  "type": "album",
+  "cover": "img/covers/east-texas-adrenaline.jpg",
+  "note": "",
+  "link": "https://easttexasadrenaline.bandcamp.com/album/east-texas-adrenaline",
+  "logo_position": "none"
+ },
+ {
+  "title": "Die Scared",
+  "year": 2022,
+  "type": "ep",
+  "cover": "img/covers/die-scared.jpg",
+  "note": "",
+  "link": "https://music.apple.com/us/artist/east-texas-adrenaline/1208255914",
+  "logo_position": "top-left"
+ },
+ {
+  "title": "1000 Miles",
+  "year": 2023,
+  "type": "ep",
+  "cover": "img/covers/1000-miles.jpg",
+  "note": "",
+  "link": "https://music.apple.com/us/artist/east-texas-adrenaline/1208255914",
+  "logo_position": "top-right"
+ },
+ {
+  "title": "Digital Toys",
+  "year": 2025,
+  "type": "ep",
+  "cover": "img/covers/digital-toys.jpg",
+  "note": "",
+  "link": "https://music.apple.com/us/artist/east-texas-adrenaline/1208255914",
+  "logo_position": "bottom-left"
+ },
+ {
+  "title": "Salt",
+  "year": 2024,
+  "type": "ep",
+  "cover": "img/covers/salt.jpg",
+  "note": "",
+  "link": "https://music.apple.com/us/artist/east-texas-adrenaline/1208255914",
+  "logo_position": "bottom-right"
+ },
+ {
+  "title": "Friction",
+  "year": 2019,
+  "type": "ep",
+  "cover": "img/covers/friction.jpg",
+  "note": "first EP",
+  "link": "https://easttexasadrenaline.bandcamp.com/album/friction",
+  "logo_position": "none"
+ }
+]

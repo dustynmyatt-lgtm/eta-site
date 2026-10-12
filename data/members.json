@@ -1,0 +1,30 @@
+[
+ {
+  "name": "Dustyn",
+  "role": "Vocals / Front Man",
+  "photo": "img/dustyn.jpg",
+  "bio": "Singing since 2016. Dustyn found his voice in a jam room at the Gary Job Corps rec center, after watching another guy botch “Smells Like Teen Spirit” and deciding to take a crack at it himself. He cut his teeth in a nameless cover band in Arkansas before taking the mic for ETA.",
+  "todo": ""
+ },
+ {
+  "name": "Darrell",
+  "role": "Guitar",
+  "photo": "img/darrell.jpg",
+  "bio": "Rocking since 1989.",
+  "todo": "more details"
+ },
+ {
+  "name": "Scott",
+  "role": "Drums",
+  "photo": "img/scott.jpg",
+  "bio": "A high-energy animal behind the kit and the heartbeat of the band.",
+  "todo": ""
+ },
+ {
+  "name": "Geddy",
+  "role": "Bass",
+  "photo": "img/geddy.jpg",
+  "bio": "Our lovable, ultra-chill bass player, holding down the low end.",
+  "todo": ""
+ }
+]

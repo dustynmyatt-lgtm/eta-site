@@ -1,0 +1,46 @@
+// Renders the changeable parts of the page from the JSON files in /data.
+// Edit content in Pages CMS (or the JSON files) — no need to touch this file.
+(function(){
+document.getElementById('yr').textContent=new Date().getFullYear();
+const menu=document.getElementById('menu'),links=document.getElementById('links');
+menu.onclick=()=>links.classList.toggle('open');links.onclick=()=>links.classList.remove('open');
+
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const src=p=>esc(p||'');
+const $=id=>document.getElementById(id);
+const load=n=>fetch('data/'+n+'.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw new Error(n);return r.json()});
+const fmtDate=d=>{const t=new Date(d+'T12:00:00');return isNaN(t)?esc(d):t.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'})};
+const todo=t=>t?`<p class="todo">${/^TODO/.test(t)?esc(t):'TODO: '+esc(t)}</p>`:'';
+const fail=(id,what)=>{const e=$(id);if(e)e.innerHTML=`<p class="sub">${what} unavailable right now.</p>`};
+const today=new Date().toISOString().slice(0,10);
+
+load('members').then(ms=>{$('members-grid').innerHTML=ms.map(m=>`<div class="card">${m.photo?`<img class="head" src="${src(m.photo)}" loading="lazy" width="600" height="600" alt="${esc(m.name)}, East Texas Adrenaline">`:'<div class="ph">?</div>'}<h3>${esc(m.name)}</h3><p class="role">${esc(m.role)}</p>${m.bio?`<p class="bio">${esc(m.bio)}</p>`:''}${todo(m.todo)}</div>`).join('')}).catch(()=>fail('members-grid','Band info'));
+
+load('releases').then(rs=>{
+ const card=r=>`<a class="rel${/NEW/i.test(r.note)?' new':''}" href="${esc(r.link||'#')}" target="_blank" rel="noopener"><img class="cov" src="${src(r.cover)}" loading="lazy" width="600" height="600" alt="${esc(r.title)} cover art"><b>${esc(r.title)}</b><span>${esc(r.year)}${r.note?' · '+esc(r.note):''}</span></a>`;
+ $('albums').innerHTML=rs.filter(r=>r.type==='album').sort((a,b)=>b.year-a.year).map(card).join('');
+ const order=['top-left','top-right','bottom-left','bottom-right'];
+ const q=order.map(p=>rs.find(r=>r.type==='ep'&&r.logo_position===p)).filter(Boolean);
+ if(q.length===4){$('logo4').innerHTML=q.map(r=>`<a class="q" href="${esc(r.link||'#')}" target="_blank" rel="noopener" title="${esc(r.title)} (${esc(r.year)})"><img src="${src(r.cover)}" loading="lazy" width="600" height="600" alt="${esc(r.title)} EP cover (${esc(r.year)}), one quarter of the ETA logo"><span>${esc(r.title)} · ${esc(r.year)}</span></a>`).join('');
+  $('logo-cap').textContent='Put the four EPs together and you get the full ETA star and skull logo: '+q.map(r=>r.title).join(', ')+'.';}
+ else $('logo4').parentElement.style.display='none';
+ $('eps-other').innerHTML=rs.filter(r=>r.type==='ep'&&!q.includes(r)).sort((a,b)=>b.year-a.year).map(card).join('');
+}).catch(()=>fail('albums','Discography'));
+
+load('news').then(ns=>{ns.sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+ $('news-list').innerHTML=ns.length?ns.map(n=>`<article class="post">${n.image?`<img src="${src(n.image)}" loading="lazy" alt="${esc(n.title)}">`:''}<div class="post-body"><p class="post-date">${fmtDate(n.date)}</p><h3>${esc(n.title)}</h3><div class="post-text">${n.body||''}</div></div></article>`).join(''):'<p class="sub">No news yet.</p>';
+}).catch(()=>fail('news-list','News'));
+
+load('gallery').then(gs=>{$('gallery-grid').innerHTML=gs.map(g=>`<figure><a href="${src(g.image)}" target="_blank" rel="noopener"><img src="${src(g.image)}" loading="lazy" alt="${esc(g.alt||g.caption)}"></a>${g.caption?`<figcaption>${esc(g.caption)}</figcaption>`:''}</figure>`).join('')}).catch(()=>fail('gallery-grid','Photos'));
+
+load('gigs').then(gs=>{const up=$('up'),pa=$('past');gs.sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+ const li=(x,past)=>`<li class="${past?'past':x.tba?'tba':''}"><span class="d">${esc(x.display||fmtDate(x.date))}</span><span class="v"><b>${esc(x.venue)}</b>${x.city?' · '+esc(x.city):''}${x.with?'<br><small>with '+esc(x.with)+'</small>':''}${x.note&&!past?'<br><small>'+esc(x.note)+'</small>':''}</span>${x.tba&&!past?'<span class="badge">TBA</span>':''}</li>`;
+ const U=gs.filter(x=>x.date>=today),P=gs.filter(x=>x.date<today).reverse();
+ up.innerHTML=U.length?U.map(x=>li(x,false)).join(''):'<li>More shows coming soon.</li>';
+ pa.innerHTML=P.length?P.map(x=>li(x,true)).join(''):'<li>No past shows listed.</li>';
+}).catch(()=>fail('up','Gig list'));
+
+load('merch').then(ms=>{$('merch-grid').innerHTML=ms.map(m=>m.available&&m.url?
+ `<div class="card prod">${m.image?`<img class="pimg" src="${src(m.image)}" loading="lazy" width="600" height="600" alt="${esc(m.title)}">`:'<div class="ph">ETA</div>'}<h3>${esc(m.title)}</h3>${m.description?`<p class="sub">${esc(m.description)}</p>`:''}${todo(m.note)}${m.price?`<p class="price">${esc(m.price)}</p>`:''}<a class="btn sm" href="${esc(m.url)}" target="_blank" rel="noopener">Buy on ${esc(m.vendor||'store')}</a></div>`:
+ `<div class="card prod ph-card">${m.image?`<img class="pimg" src="${src(m.image)}" loading="lazy" alt="${esc(m.title)}">`:'<div class="ph">ETA</div>'}<h3>${esc(m.title)}</h3>${todo(m.note)}</div>`).join('')}).catch(()=>fail('merch-grid','Merch'));
+})();
