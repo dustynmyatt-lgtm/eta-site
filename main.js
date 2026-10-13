@@ -3,13 +3,14 @@
 (function(){
 document.getElementById('yr').textContent=new Date().getFullYear();
 const menu=document.getElementById('menu'),links=document.getElementById('links');
-menu.onclick=()=>links.classList.toggle('open');links.onclick=()=>links.classList.remove('open');
+menu.onclick=()=>menu.setAttribute('aria-expanded',links.classList.toggle('open'));links.onclick=()=>{links.classList.remove('open');menu.setAttribute('aria-expanded','false')};
+document.querySelectorAll('.yt').forEach(y=>y.querySelector('button').onclick=()=>{y.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${y.dataset.id}?autoplay=1" title="Misfortune video" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`});
 
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const src=p=>esc(p||'');
 const $=id=>document.getElementById(id);
 const load=n=>fetch('data/'+n+'.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw new Error(n);return r.json()});
-const fmtDate=d=>{const t=new Date(d+'T12:00:00');return isNaN(t)?esc(d):t.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'})};
+const fmtDate=d=>{if(/^\d{4}-\d{2}$/.test(d))return new Date(d+'-15T12:00:00').toLocaleDateString('en-US',{month:'short',year:'numeric'});const t=new Date(d+'T12:00:00');return isNaN(t)?esc(d):t.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'})};
 const todo=t=>t?`<p class="todo">${/^TODO/.test(t)?esc(t):'TODO: '+esc(t)}</p>`:'';
 const fail=(id,what)=>{const e=$(id);if(e)e.innerHTML=`<p class="sub">${what} unavailable right now.</p>`};
 const today=new Date().toISOString().slice(0,10);
@@ -43,4 +44,6 @@ load('gigs').then(gs=>{const up=$('up'),pa=$('past');gs.sort((a,b)=>String(a.dat
 load('merch').then(ms=>{$('merch-grid').innerHTML=ms.map(m=>m.available&&m.url?
  `<div class="card prod">${m.image?`<img class="pimg" src="${src(m.image)}" loading="lazy" width="600" height="600" alt="${esc(m.title)}">`:'<div class="ph">ETA</div>'}<h3>${esc(m.title)}</h3>${m.description?`<p class="sub">${esc(m.description)}</p>`:''}${todo(m.note)}${m.price?`<p class="price">${esc(m.price)}</p>`:''}<a class="btn sm" href="${esc(m.url)}" target="_blank" rel="noopener">Buy on ${esc(m.vendor||'store')}</a></div>`:
  `<div class="card prod ph-card">${m.image?`<img class="pimg" src="${src(m.image)}" loading="lazy" alt="${esc(m.title)}">`:'<div class="ph">ETA</div>'}<h3>${esc(m.title)}</h3>${todo(m.note)}</div>`).join('')}).catch(()=>fail('merch-grid','Merch'));
+load('press').then(ps=>{ps.sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+ $('press-list').innerHTML=ps.map(p=>`<article class="pr ${esc(p.type)}"><p class="k">${esc(p.type)} · ${esc(p.outlet)}${p.date?' · '+fmtDate(p.date):''}</p><h3>${esc(p.headline)}</h3>${p.detail?`<p>${esc(p.detail)}</p>`:''}${p.quote?`<blockquote>“${esc(p.quote)}”</blockquote>`:''}${p.url?`<a href="${esc(p.url)}" target="_blank" rel="noopener">Read source →</a>`:''}${todo(p.todo)}</article>`).join('')}).catch(()=>fail('press-list','Press'));
 })();

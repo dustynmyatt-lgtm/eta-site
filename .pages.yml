@@ -93,3 +93,19 @@ content:
         label: "EP logo tile (only for the 4 logo EPs)"
         type: select
         options: { values: [none, top-left, top-right, bottom-left, bottom-right] }
+
+  - name: press
+    label: Press & Radio
+    type: file
+    path: data/press.json
+    format: json
+    list: true
+    fields:
+      - { name: type, label: Type, type: select, options: { values: [radio, review, feature, interview, release] } }
+      - { name: outlet, label: "Outlet / station", type: string, required: true }
+      - { name: date, label: Date, type: date, options: { format: "yyyy-MM-dd" } }
+      - { name: headline, label: Headline, type: string, required: true }
+      - { name: detail, label: Detail, type: string }
+      - { name: quote, label: "Quote (exact words only)", type: text }
+      - { name: url, label: "Source link", type: string }
+      - { name: todo, label: "Internal note (shows as TODO, clear before launch)", type: string }
