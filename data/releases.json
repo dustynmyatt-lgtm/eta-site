@@ -4,7 +4,7 @@
   "year": 2026,
   "type": "album",
   "cover": "img/covers/knockout.jpg",
-  "note": "10 songs \u00b7 NEW",
+  "note": "10 songs · NEW",
   "link": "https://music.apple.com/us/artist/east-texas-adrenaline/1208255914",
   "logo_position": "none"
  },
@@ -33,6 +33,15 @@
   "cover": "img/covers/east-texas-adrenaline.jpg",
   "note": "",
   "link": "https://easttexasadrenaline.bandcamp.com/album/east-texas-adrenaline",
+  "logo_position": "none"
+ },
+ {
+  "title": "Stand Up",
+  "year": 2020,
+  "type": "7\" vinyl",
+  "cover": "img/covers/stand-up-7in.jpg",
+  "note": "Rare 7-inch",
+  "link": "https://www.youtube.com/watch?v=et7ij1Upni0",
   "logo_position": "none"
  },
  {

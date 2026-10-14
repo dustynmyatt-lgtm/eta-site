@@ -20,6 +20,8 @@ load('members').then(ms=>{$('members-grid').innerHTML=ms.map(m=>`<div class="car
 load('releases').then(rs=>{
  const card=r=>`<a class="rel${/NEW/i.test(r.note)?' new':''}" href="${esc(r.link||'#')}" target="_blank" rel="noopener"><img class="cov" src="${src(r.cover)}" loading="lazy" width="600" height="600" alt="${esc(r.title)} cover art"><b>${esc(r.title)}</b><span>${esc(r.year)}${r.note?' · '+esc(r.note):''}</span></a>`;
  $('albums').innerHTML=rs.filter(r=>r.type==='album').sort((a,b)=>b.year-a.year).map(card).join('');
+ const vinyl=rs.filter(r=>r.type!=='album'&&r.type!=='ep').sort((a,b)=>b.year-a.year);
+ const v=$('vinyl'); if(v){v.innerHTML=vinyl.length?vinyl.map(card).join(''):'<p class="sub">No vinyl releases listed.</p>';}
  const order=['top-left','top-right','bottom-left','bottom-right'];
  const q=order.map(p=>rs.find(r=>r.type==='ep'&&r.logo_position===p)).filter(Boolean);
  if(q.length===4){$('logo4').innerHTML=q.map(r=>`<a class="q" href="${esc(r.link||'#')}" target="_blank" rel="noopener" title="${esc(r.title)} (${esc(r.year)})"><img src="${src(r.cover)}" loading="lazy" width="600" height="600" alt="${esc(r.title)} EP cover (${esc(r.year)}), one quarter of the ETA logo"><span>${esc(r.title)} · ${esc(r.year)}</span></a>`).join('');
