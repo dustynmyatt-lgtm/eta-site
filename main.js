@@ -39,7 +39,7 @@ load('gallery').then(gs=>{$('gallery-grid').innerHTML=gs.map(g=>`<figure><a href
 load('gigs').then(gs=>{const up=$('up'),pa=$('past');gs.sort((a,b)=>String(a.date).localeCompare(String(b.date)));
  const li=(x,past)=>`<li class="${past?'past':x.tba?'tba':''}"><span class="d">${esc(x.display||fmtDate(x.date))}</span><span class="v"><b>${esc(x.venue)}</b>${x.city?' · '+esc(x.city):''}${x.with?'<br><small>with '+esc(x.with)+'</small>':''}${x.note&&!past?'<br><small>'+esc(x.note)+'</small>':''}</span>${x.tba&&!past?'<span class="badge">TBA</span>':''}</li>`;
  const U=gs.filter(x=>x.date>=today),P=gs.filter(x=>x.date<today).reverse();
- up.innerHTML=U.length?U.map(x=>li(x,false)).join(''):'<li>More shows coming soon.</li>';
+ up.innerHTML=U.length?U.map(x=>li(x,false)).join(''):'<li class="empty-up"><span class="v"><b>New dates coming soon.</b><br>Now booking all-ages shows across SETX, Houston and Lake Charles.</span><a class="btn sm" href="#contact">Book Us</a></li>';
  pa.innerHTML=P.length?P.map(x=>li(x,true)).join(''):'<li>No past shows listed.</li>';
 }).catch(()=>fail('up','Gig list'));
 

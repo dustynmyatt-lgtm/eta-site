@@ -71,3 +71,6 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--b);outline-offset:2
 .fb-note{max-width:500px;margin:0 auto}
 .site-updates{margin:1.5rem 0 .8rem;color:var(--b)}
 @media(max-width:540px){.fb-feed{height:600px}}
+
+/* Empty upcoming: active booking CTA */
+.gigs .empty-up{flex-wrap:wrap;border-color:var(--b)}.gigs .empty-up .btn{margin-left:auto}
