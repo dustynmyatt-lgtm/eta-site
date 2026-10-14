@@ -9,7 +9,7 @@ document.querySelectorAll('.yt').forEach(y=>y.querySelector('button').onclick=()
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const src=p=>esc(p||'');
 const $=id=>document.getElementById(id);
-const load=n=>fetch('data/'+n+'.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw new Error(n);return r.json()});
+const load=n=>{if(window.ETA_DATA&&window.ETA_DATA[n]!=null)return Promise.resolve(window.ETA_DATA[n]);return fetch('data/'+n+'.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw new Error(n);return r.json()})};
 const fmtDate=d=>{if(/^\d{4}-\d{2}$/.test(d))return new Date(d+'-15T12:00:00').toLocaleDateString('en-US',{month:'short',year:'numeric'});const t=new Date(d+'T12:00:00');return isNaN(t)?esc(d):t.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'})};
 const todo=t=>t?`<p class="todo">${/^TODO/.test(t)?esc(t):'TODO: '+esc(t)}</p>`:'';
 const fail=(id,what)=>{const e=$(id);if(e)e.innerHTML=`<p class="sub">${what} unavailable right now.</p>`};
