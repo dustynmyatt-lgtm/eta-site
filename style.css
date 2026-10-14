@@ -63,3 +63,11 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--b);outline-offset:2
 .pr blockquote{font-style:italic;margin:.5rem 0;color:#ddd}.pr a{color:var(--b)}
 .cta{background:linear-gradient(135deg,#ff2a2a33,#ffd40022);border:1px solid #ff2a2a66;border-radius:8px;padding:1.2rem;margin:1rem 0}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Facebook Page Plugin in News */
+.fb-wrap{margin:1rem 0 1.5rem;text-align:center}
+.fb-feed{display:block;width:100%;max-width:500px;height:700px;margin:0 auto;background:var(--p);border-radius:8px;border:1px solid #333}
+.fb-actions{margin:1rem 0 .5rem}
+.fb-note{max-width:500px;margin:0 auto}
+.site-updates{margin:1.5rem 0 .8rem;color:var(--b)}
+@media(max-width:540px){.fb-feed{height:600px}}
