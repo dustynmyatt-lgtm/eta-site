@@ -59,7 +59,6 @@ content:
       - { name: image, label: Photo, type: image }
       - { name: url, label: "Vendor product page link", type: string }
       - { name: vendor, label: "Vendor name (shown as Buy on …)", type: string }
-      - { name: note, label: "Note / TODO", type: string }
       - { name: available, label: "Show Buy button (on sale online)", type: boolean }
 
   - name: members
@@ -73,7 +72,6 @@ content:
       - { name: role, label: Role, type: string }
       - { name: photo, label: Headshot (square), type: image }
       - { name: bio, label: Bio, type: text }
-      - { name: todo, label: "TODO note (leave blank when done)", type: string }
 
   - name: releases
     label: Releases

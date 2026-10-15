@@ -1,12 +1,11 @@
 [
  {
   "title": "East Texas Adrenaline (2017) CD",
-  "description": "Audio CD \u00b7 Amazon (third-party sellers)",
+  "description": "Audio CD · Amazon (third-party sellers)",
   "price": "from $16.59",
   "image": "img/covers/east-texas-adrenaline.jpg",
   "url": "https://www.amazon.com/dp/B06XB2B6KX",
   "vendor": "Amazon",
-  "note": "",
   "available": true
  },
  {
@@ -16,7 +15,6 @@
   "image": "img/merch/guitar-picks.jpg",
   "url": "https://easttexasadrenaline.bandcamp.com/merch/guitar-picks",
   "vendor": "Bandcamp",
-  "note": "",
   "available": true
  },
  {
@@ -26,7 +24,6 @@
   "image": "img/merch/koozies.jpg",
   "url": "https://easttexasadrenaline.bandcamp.com/merch/koozies",
   "vendor": "Bandcamp",
-  "note": "",
   "available": true
  },
  {
@@ -36,7 +33,6 @@
   "image": "img/merch/stickers.jpg",
   "url": "https://easttexasadrenaline.bandcamp.com/merch/stickers",
   "vendor": "Bandcamp",
-  "note": "",
   "available": true
  }
 ]
