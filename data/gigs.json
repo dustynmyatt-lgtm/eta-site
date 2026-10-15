@@ -1,11 +1,200 @@
 [
  {
   "date": "2026-10-10",
-  "display": "Sat, Oct 10, 2026",
-  "venue": "For the Record",
-  "city": "Beaumont, TX (999 Calder Ave)",
-  "with": "Zegovia, Psycho Jenni",
+  "display": "",
+  "venue": "For The Record",
+  "city": "Beaumont, TX",
+  "with": "Psycho Jenni and Zegovia",
   "tba": false,
-  "note": ""
+  "note": "",
+  "source": "https://www.facebook.com/events/1955670408740728/",
+  "video": ""
+ },
+ {
+  "date": "2026-09-05",
+  "display": "",
+  "venue": "The Kickback Bar",
+  "city": "Houston, TX",
+  "with": "The Blanched Corinthians",
+  "tba": false,
+  "note": "",
+  "source": "https://www.facebook.com/events/4375544462760456/",
+  "video": ""
+ },
+ {
+  "date": "2026-06-13",
+  "display": "",
+  "venue": "For The Record",
+  "city": "Beaumont, TX",
+  "with": "Scar Theory and Choke",
+  "tba": false,
+  "note": "Knockout album release show",
+  "source": "https://www.facebook.com/events/1732479371527663/",
+  "video": ""
+ },
+ {
+  "date": "2026-04-24",
+  "display": "",
+  "venue": "For The Record",
+  "city": "Beaumont, TX",
+  "with": "Ditch Witch and The Blanched Corinthians",
+  "tba": false,
+  "note": "",
+  "source": "https://www.facebook.com/events/946739581103943/",
+  "video": ""
+ },
+ {
+  "date": "2025-10-10",
+  "display": "",
+  "venue": "For The Record",
+  "city": "Beaumont, TX",
+  "with": "AEPSHYT and Von Dukes",
+  "tba": false,
+  "note": "",
+  "source": "https://www.facebook.com/events/807621411618972/",
+  "video": ""
+ },
+ {
+  "date": "2025-07-12",
+  "display": "",
+  "venue": "For The Record",
+  "city": "Beaumont, TX",
+  "with": "Silence Fuels Nothing and AEPSHYT",
+  "tba": false,
+  "note": "",
+  "source": "https://www.facebook.com/events/1822449088613904/",
+  "video": ""
+ },
+ {
+  "date": "2025-05-31",
+  "display": "",
+  "venue": "Texas Rose Saloon",
+  "city": "Beaumont, TX",
+  "with": "State of Mind and Vection",
+  "tba": false,
+  "note": "",
+  "source": "https://www.facebook.com/events/579385377784210/",
+  "video": ""
+ },
+ {
+  "date": "2024-10-26",
+  "display": "",
+  "venue": "Texas Rose Saloon",
+  "city": "Beaumont, TX",
+  "with": "Amazing Timekeepers Band and State of Mind",
+  "tba": false,
+  "note": "Halloween party and State of Mind CD release",
+  "source": "https://www.facebook.com/dustyn.myatt",
+  "video": ""
+ },
+ {
+  "date": "2023-04-08",
+  "display": "",
+  "venue": "Texas Rose Saloon",
+  "city": "Beaumont, TX",
+  "with": "Amazing Timekeepers Band, Acoustic Halo and Jay Lambs Remy",
+  "tba": false,
+  "note": "John Ferris benefit",
+  "source": "https://www.facebook.com/dustyn.myatt (timeline posts); https://www.youtube.com/watch?v=07TYP7EBtjU",
+  "video": "https://www.youtube.com/watch?v=07TYP7EBtjU"
+ },
+ {
+  "date": "2020-02-29",
+  "display": "",
+  "venue": "Texas Rose Saloon",
+  "city": "Beaumont, TX",
+  "with": "Silence Fuels Nothing",
+  "tba": false,
+  "note": "",
+  "source": "https://www.facebook.com/events/638949613315817/",
+  "video": "https://www.youtube.com/watch?v=Xbr52IqvNIY"
+ },
+ {
+  "date": "2019-07-20",
+  "display": "",
+  "venue": "Texas Rose Saloon",
+  "city": "Beaumont, TX",
+  "with": "Rear Naked Choke",
+  "tba": false,
+  "note": "",
+  "source": "https://www.facebook.com/events/2124519131003582/",
+  "video": ""
+ },
+ {
+  "date": "2019-04-19",
+  "display": "",
+  "venue": "Texas Rose Saloon",
+  "city": "Beaumont, TX",
+  "with": "",
+  "tba": false,
+  "note": "",
+  "source": "https://www.youtube.com/watch?v=4RuZ21DZVWA",
+  "video": "https://www.youtube.com/watch?v=4RuZ21DZVWA"
+ },
+ {
+  "date": "2018-06-30",
+  "display": "",
+  "venue": "Texas Rose Saloon",
+  "city": "Beaumont, TX",
+  "with": "",
+  "tba": false,
+  "note": "Benefit show",
+  "source": "https://www.youtube.com/watch?v=rWCcHinhEtw",
+  "video": "https://www.youtube.com/watch?v=rWCcHinhEtw"
+ },
+ {
+  "date": "2018-04-20",
+  "display": "",
+  "venue": "Texas Rose Saloon",
+  "city": "Beaumont, TX",
+  "with": "",
+  "tba": false,
+  "note": "Built to Last CD release",
+  "source": "https://www.youtube.com/watch?v=cScm6hMGc1w",
+  "video": "https://www.youtube.com/watch?v=cScm6hMGc1w"
+ },
+ {
+  "date": "2018-02-24",
+  "display": "",
+  "venue": "Texas Rose Saloon",
+  "city": "Beaumont, TX",
+  "with": "",
+  "tba": false,
+  "note": "",
+  "source": "https://www.youtube.com/watch?v=MmOPfbmDu5g",
+  "video": "https://www.youtube.com/watch?v=MmOPfbmDu5g"
+ },
+ {
+  "date": "2017-08-19",
+  "display": "",
+  "venue": "Texas Rose Saloon",
+  "city": "Beaumont, TX",
+  "with": "",
+  "tba": false,
+  "note": "",
+  "source": "https://www.youtube.com/watch?v=HkNLIIsciDM",
+  "video": "https://www.youtube.com/watch?v=HkNLIIsciDM"
+ },
+ {
+  "date": "2017-06-16",
+  "display": "",
+  "venue": "Texas Rose Saloon",
+  "city": "Beaumont, TX",
+  "with": "",
+  "tba": false,
+  "note": "",
+  "source": "https://www.youtube.com/watch?v=z1zENUoYN9I",
+  "video": "https://www.youtube.com/watch?v=z1zENUoYN9I"
+ },
+ {
+  "date": "2017-04-22",
+  "display": "",
+  "venue": "Texas Rose Saloon",
+  "city": "Beaumont, TX",
+  "with": "",
+  "tba": false,
+  "note": "",
+  "source": "https://www.youtube.com/watch?v=yZYE-UAXvC0",
+  "video": "https://www.youtube.com/watch?v=yZYE-UAXvC0"
  }
 ]

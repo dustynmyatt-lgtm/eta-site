@@ -12,8 +12,9 @@ const $=id=>document.getElementById(id);
 const load=n=>{if(window.ETA_DATA&&window.ETA_DATA[n]!=null)return Promise.resolve(window.ETA_DATA[n]);return fetch('data/'+n+'.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw new Error(n);return r.json()})};
 const fmtDate=d=>{if(/^\d{4}-\d{2}$/.test(d))return new Date(d+'-15T12:00:00').toLocaleDateString('en-US',{month:'short',year:'numeric'});const t=new Date(d+'T12:00:00');return isNaN(t)?esc(d):t.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'})};
 const todo=t=>t?`<p class="todo">${/^TODO/.test(t)?esc(t):'TODO: '+esc(t)}</p>`:'';
+const fmtShort=(d,part)=>{const t=new Date(d+'T12:00:00');if(isNaN(t))return part==='day'?d:'';return part==='month'?t.toLocaleDateString('en-US',{month:'short'}):part==='day'?String(t.getDate()):String(t.getFullYear())};
 const fail=(id,what)=>{const e=$(id);if(e)e.innerHTML=`<p class="sub">${what} unavailable right now.</p>`};
-const today=new Date().toISOString().slice(0,10);
+const today=(d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`)(new Date());
 
 load('members').then(ms=>{$('members-grid').innerHTML=ms.map(m=>`<div class="card">${m.photo?`<img class="head" src="${src(m.photo)}" loading="lazy" width="600" height="600" alt="${esc(m.name)}, East Texas Adrenaline">`:'<div class="ph">?</div>'}<h3>${esc(m.name)}</h3><p class="role">${esc(m.role)}</p>${m.bio?`<p class="bio">${esc(m.bio)}</p>`:''}${todo(m.todo)}</div>`).join('')}).catch(()=>fail('members-grid','Band info'));
 
@@ -37,10 +38,15 @@ load('news').then(ns=>{ns.sort((a,b)=>String(b.date).localeCompare(String(a.date
 load('gallery').then(gs=>{$('gallery-grid').innerHTML=gs.map(g=>`<figure><a href="${src(g.image)}" target="_blank" rel="noopener"><img src="${src(g.image)}" loading="lazy" alt="${esc(g.alt||g.caption)}"></a>${g.caption?`<figcaption>${esc(g.caption)}</figcaption>`:''}</figure>`).join('')}).catch(()=>fail('gallery-grid','Photos'));
 
 load('gigs').then(gs=>{const up=$('up'),pa=$('past');gs.sort((a,b)=>String(a.date).localeCompare(String(b.date)));
- const li=(x,past)=>`<li class="${past?'past':x.tba?'tba':''}"><span class="d">${esc(x.display||fmtDate(x.date))}</span><span class="v"><b>${esc(x.venue)}</b>${x.city?' · '+esc(x.city):''}${x.with?'<br><small>with '+esc(x.with)+'</small>':''}${x.note&&!past?'<br><small>'+esc(x.note)+'</small>':''}</span>${x.tba&&!past?'<span class="badge">TBA</span>':''}</li>`;
- const U=gs.filter(x=>x.date>=today),P=gs.filter(x=>x.date<today).reverse();
- up.innerHTML=U.length?U.map(x=>li(x,false)).join(''):'<li class="empty-up"><span class="v"><b>New dates coming soon.</b><br>Booking all-ages and family-friendly shows first, plus bars and clubs, across SETX, Houston, Lake Charles and beyond.</span><a class="btn sm" href="#contact">Book Us</a></li>';
- pa.innerHTML=P.length?P.map(x=>li(x,true)).join(''):'<li>No past shows listed.</li>';
+ const li=x=>`<li class="${x.tba?'tba':''}"><span class="d">${esc(x.display||fmtDate(x.date))}</span><span class="v"><b>${esc(x.venue)}</b>${x.city?' · '+esc(x.city):''}${x.with?'<br><small>with '+esc(x.with)+'</small>':''}${x.note?'<br><small>'+esc(x.note)+'</small>':''}</span>${x.tba?'<span class="badge">TBA</span>':''}</li>`;
+ const dbox=x=>{const m=/^([A-Za-z]+)\s+(\d{4})$/.exec(x.display||'');if(m)return `<span class="ps-m">${esc(m[1].slice(0,3))}</span><span class="ps-day">—</span><span class="ps-y">${esc(m[2])}</span>`;if(x.display)return `<span class="ps-y">${esc(x.display)}</span>`;return `<span class="ps-m">${esc(fmtShort(x.date,'month'))}</span><span class="ps-day">${esc(fmtShort(x.date,'day'))}</span><span class="ps-y">${esc(fmtShort(x.date,'year'))}</span>`};
+ const yt=u=>/^https:\/\/(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)[\w-]+/.test(u||'');
+ const pli=(x,i)=>`<li class="ps${i>=SHOW?' ps-more':''}"><time class="ps-d" datetime="${esc(x.display?String(x.date).slice(0,7):x.date)}" title="${esc(x.display||fmtDate(x.date))}">${dbox(x)}</time><span class="ps-v"><b>${esc(x.venue||x.city)}</b>${x.venue&&x.city?'<span class="ps-c">'+esc(x.city)+'</span>':''}${x.with?'<small>with '+esc(x.with)+'</small>':''}${x.note?'<small class="ps-n">★ '+esc(x.note)+'</small>':''}</span>${yt(x.video)?`<a class="ps-w" href="${esc(x.video)}" target="_blank" rel="noopener" aria-label="Watch video from ${esc(x.display||fmtDate(x.date))}">▶ Watch</a>`:''}</li>`;
+ const SHOW=6,U=gs.filter(x=>x.date>=today),P=gs.filter(x=>x.date<today).reverse();
+ up.innerHTML=U.length?U.map(li).join(''):'<li class="empty-up"><span class="v"><b>New dates coming soon.</b><br>Booking all-ages and family-friendly shows first, plus bars and clubs, across SETX, Houston, Lake Charles and beyond.</span><a class="btn sm" href="#contact">Book Us</a></li>';
+ pa.innerHTML=P.length?P.map(pli).join(''):'<li class="ps">No past shows listed.</li>';
+ const tg=$('past-toggle');
+ if(tg&&P.length>SHOW){tg.hidden=false;const lbl=()=>tg.textContent=pa.classList.contains('all')?'Show fewer':`Show all ${P.length} shows`;lbl();tg.onclick=()=>{tg.setAttribute('aria-expanded',pa.classList.toggle('all'));lbl()}}
 }).catch(()=>fail('up','Gig list'));
 
 load('merch').then(ms=>{const real=ms.filter(m=>m.available&&m.url);
