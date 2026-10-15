@@ -1,0 +1,10 @@
+.git
+.github
+.pages.yml
+wrangler.jsonc
+.assetsignore
+build-bundle.py
+*.md
+desk-*.png
+shot-*.png
+node_modules
