@@ -31,7 +31,7 @@ load('releases').then(rs=>{
 }).catch(()=>fail('albums','Discography'));
 
 load('news').then(ns=>{ns.sort((a,b)=>String(b.date).localeCompare(String(a.date)));
- $('news-list').innerHTML=ns.length?ns.map(n=>`<article class="post">${n.image?`<img src="${src(n.image)}" loading="lazy" alt="${esc(n.title)}">`:''}<div class="post-body"><p class="post-date">${fmtDate(n.date)}</p><h3>${esc(n.title)}</h3><div class="post-text">${n.body||''}</div></div></article>`).join(''):'<p class="sub">No news yet.</p>';
+ $('news-list').innerHTML=ns.length?ns.map(n=>`<article class="post">${n.image?`<img src="${src(n.image)}" loading="lazy" alt="${esc(n.title)}">`:''}<div class="post-body"><p class="post-date">${fmtDate(n.date)}</p><h3>${esc(n.title)}</h3><div class="post-text">${n.body||''}</div>${n.url?`<p class="post-link"><a href="${esc(n.url)}" target="_blank" rel="noopener">View on Facebook</a></p>`:''}</div></article>`).join(''):'<p class="sub">No news yet.</p>';
 }).catch(()=>fail('news-list','News'));
 
 load('gallery').then(gs=>{$('gallery-grid').innerHTML=gs.map(g=>`<figure><a href="${src(g.image)}" target="_blank" rel="noopener"><img src="${src(g.image)}" loading="lazy" alt="${esc(g.alt||g.caption)}"></a>${g.caption?`<figcaption>${esc(g.caption)}</figcaption>`:''}</figure>`).join('')}).catch(()=>fail('gallery-grid','Photos'));
