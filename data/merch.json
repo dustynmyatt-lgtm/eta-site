@@ -6,7 +6,7 @@
   "image": "img/covers/east-texas-adrenaline.jpg",
   "url": "https://shop.darksiderecords.com/products/east-texas-adrenaline-east-texas-adrenaline",
   "vendor": "Darkside Records",
-  "note": "TODO: confirm this vendor is OK to send fans to",
+  "note": "",
   "available": true
  },
  {
@@ -48,65 +48,5 @@
   "vendor": "Bandcamp",
   "note": "",
   "available": true
- },
- {
-  "title": "Other CDs",
-  "description": "",
-  "price": "",
-  "image": "",
-  "url": "",
-  "vendor": "",
-  "note": "TODO: no listings found for Built to Last, Flossing of Society or the EPs on CD; add vendor links",
-  "available": false
- },
- {
-  "title": "Vinyl",
-  "description": "",
-  "price": "",
-  "image": "",
-  "url": "",
-  "vendor": "",
-  "note": "TODO: no vinyl listing found (Knockout on vinyl unconfirmed); add vendor link + price",
-  "available": false
- },
- {
-  "title": "T-Shirts",
-  "description": "",
-  "price": "",
-  "image": "",
-  "url": "",
-  "vendor": "",
-  "note": "TODO: no listing found; add vendor link + price",
-  "available": false
- },
- {
-  "title": "Pick Tins",
-  "description": "",
-  "price": "",
-  "image": "",
-  "url": "",
-  "vendor": "",
-  "note": "TODO: no listing found; add vendor link + price",
-  "available": false
- },
- {
-  "title": "Buttons",
-  "description": "",
-  "price": "",
-  "image": "",
-  "url": "",
-  "vendor": "",
-  "note": "TODO: no listing found; add vendor link + price",
-  "available": false
- },
- {
-  "title": "ETA Drum Sticks",
-  "description": "",
-  "price": "",
-  "image": "",
-  "url": "",
-  "vendor": "",
-  "note": "TODO: no listing found; add vendor link + price",
-  "available": false
  }
 ]

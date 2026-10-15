@@ -1,4 +1,4 @@
-# ETA Website – Admin Guide (for Dustyn & Darrell)
+# ETA Website – Admin Guide (for Dustyn & Darrel)
 
 You update the site at **https://app.pagescms.org** – no code needed. Every save goes live on the website in about 1–2 minutes.
 

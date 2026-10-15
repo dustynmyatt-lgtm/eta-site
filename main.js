@@ -43,9 +43,9 @@ load('gigs').then(gs=>{const up=$('up'),pa=$('past');gs.sort((a,b)=>String(a.dat
  pa.innerHTML=P.length?P.map(x=>li(x,true)).join(''):'<li>No past shows listed.</li>';
 }).catch(()=>fail('up','Gig list'));
 
-load('merch').then(ms=>{$('merch-grid').innerHTML=ms.map(m=>m.available&&m.url?
- `<div class="card prod">${m.image?`<img class="pimg" src="${src(m.image)}" loading="lazy" width="600" height="600" alt="${esc(m.title)}">`:'<div class="ph">ETA</div>'}<h3>${esc(m.title)}</h3>${m.description?`<p class="sub">${esc(m.description)}</p>`:''}${todo(m.note)}${m.price?`<p class="price">${esc(m.price)}</p>`:''}<a class="btn sm" href="${esc(m.url)}" target="_blank" rel="noopener">Buy on ${esc(m.vendor||'store')}</a></div>`:
- `<div class="card prod ph-card">${m.image?`<img class="pimg" src="${src(m.image)}" loading="lazy" alt="${esc(m.title)}">`:'<div class="ph">ETA</div>'}<h3>${esc(m.title)}</h3>${todo(m.note)}</div>`).join('')}).catch(()=>fail('merch-grid','Merch'));
+load('merch').then(ms=>{const real=ms.filter(m=>m.available&&m.url);
+ if(!real.length){const s=$('merch-grid');s.innerHTML='';s.hidden=true;return;}
+ $('merch-grid').innerHTML=real.map(m=>`<div class="card prod">${m.image?`<img class="pimg" src="${src(m.image)}" loading="lazy" width="600" height="600" alt="${esc(m.title)}">`:'<div class="ph">ETA</div>'}<h3>${esc(m.title)}</h3>${m.description?`<p class="sub">${esc(m.description)}</p>`:''}${m.price?`<p class="price">${esc(m.price)}</p>`:''}<a class="btn sm" href="${esc(m.url)}" target="_blank" rel="noopener">Buy on ${esc(m.vendor||'store')}</a></div>`).join('')}).catch(()=>fail('merch-grid','Merch'));
 load('press').then(ps=>{ps.sort((a,b)=>String(b.date).localeCompare(String(a.date)));
  $('press-list').innerHTML=ps.map(p=>`<article class="pr ${esc(p.type)}"><p class="k">${esc(p.type)} · ${esc(p.outlet)}${p.date?' · '+fmtDate(p.date):''}</p><h3>${esc(p.headline)}</h3>${p.detail?`<p>${esc(p.detail)}</p>`:''}${p.quote?`<blockquote>“${esc(p.quote)}”</blockquote>`:''}${p.url?`<a href="${esc(p.url)}" target="_blank" rel="noopener">Read source →</a>`:''}${todo(p.todo)}</article>`).join('')}).catch(()=>fail('press-list','Press'));
 })();

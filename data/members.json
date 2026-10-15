@@ -7,24 +7,24 @@
   "todo": ""
  },
  {
-  "name": "Darrell",
+  "name": "Darrel",
   "role": "Guitar",
-  "photo": "img/darrell.jpg",
-  "bio": "Rocking since 1989.",
-  "todo": "more details"
+  "photo": "img/darrel.jpg",
+  "bio": "Rocking since 1989, Darrel has played in numerous punk and metal bands throughout his career. He's the co-founder of ETA along with Scott, and is known for his Iceman guitars, loud overdriven Marshalls, and Adrenaline Pumping Riffs.",
+  "todo": ""
  },
  {
   "name": "Scott",
   "role": "Drums",
   "photo": "img/scott.jpg",
-  "bio": "A high-energy animal behind the kit and the heartbeat of the band.",
+  "bio": "Co-founder of ETA, known for his high energy and his tendency to break drum sticks, Scott is an absolute animal behind the kit and the heartbeat of the band.",
   "todo": ""
  },
  {
-  "name": "Geddy",
+  "name": "Gedy",
   "role": "Bass",
-  "photo": "img/geddy.jpg",
-  "bio": "Our lovable, ultra-chill bass player, holding down the low end.",
+  "photo": "img/gedy.jpg",
+  "bio": "Darrel's son, Gedy is our ultra-chill but loveable bass player, always holding down the low end.",
   "todo": ""
  }
 ]
