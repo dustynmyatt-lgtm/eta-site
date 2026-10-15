@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://easttexasadrenaline.com/sitemap.xml
