@@ -46,6 +46,23 @@ load('gigs').then(gs=>{const up=$('up'),pa=$('past');gs.sort((a,b)=>String(a.dat
 load('merch').then(ms=>{const real=ms.filter(m=>m.available&&m.url);
  if(!real.length){const s=$('merch-grid');s.innerHTML='';s.hidden=true;return;}
  $('merch-grid').innerHTML=real.map(m=>`<div class="card prod">${m.image?`<img class="pimg" src="${src(m.image)}" loading="lazy" width="600" height="600" alt="${esc(m.title)}">`:'<div class="ph">ETA</div>'}<h3>${esc(m.title)}</h3>${m.description?`<p class="sub">${esc(m.description)}</p>`:''}${m.price?`<p class="price">${esc(m.price)}</p>`:''}<a class="btn sm" href="${esc(m.url)}" target="_blank" rel="noopener">Buy on ${esc(m.vendor||'store')}</a></div>`).join('')}).catch(()=>fail('merch-grid','Merch'));
-load('press').then(ps=>{ps.sort((a,b)=>String(b.date).localeCompare(String(a.date)));
- $('press-list').innerHTML=ps.map(p=>`<article class="pr ${esc(p.type)}"><p class="k">${esc(p.type)} · ${esc(p.outlet)}${p.date?' · '+fmtDate(p.date):''}</p><h3>${esc(p.headline)}</h3>${p.detail?`<p>${esc(p.detail)}</p>`:''}${p.quote?`<blockquote>“${esc(p.quote)}”</blockquote>`:''}${p.url?`<a href="${esc(p.url)}" target="_blank" rel="noopener">Read source →</a>`:''}${todo(p.todo)}</article>`).join('')}).catch(()=>fail('press-list','Press'));
+load('press').then(ps=>{
+ const byDate=(a,b)=>String(b.date).localeCompare(String(a.date));ps.sort(byDate);
+ const fd=d=>{if(!d)return'';if(/^\d{4}-\d{2}$/.test(d))return new Date(d+'-15T12:00:00').toLocaleDateString('en-US',{month:'short',year:'numeric'});const t=new Date(d+'T12:00:00');return isNaN(t)?esc(d):t.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})};
+ const src_=p=>p.url?`<a class="pr-src" href="${esc(p.url)}" target="_blank" rel="noopener">${p.type==='review'?'Read the full review':'Read source'} →</a>`:'';
+ const score=s=>{if(!s)return'';const m=String(s).match(/^([^/]+)\/(.+)$/);return `<span class="pq-score" aria-label="Score ${esc(s)}">${m?esc(m[1])+'<small>/'+esc(m[2])+'</small>':esc(s)}</span>`};
+ const feat=ps.filter(p=>p.featured),arch=ps.filter(p=>!p.featured);
+ const chart=feat.find(p=>p.type==='chart');
+ const ones=feat.filter(p=>p.type==='radio'&&/#1\b/.test(p.headline||''));
+ const quotes=feat.filter(p=>p.quote&&p.type!=='chart');
+ const rest=feat.filter(p=>p!==chart&&!ones.includes(p)&&!quotes.includes(p));
+ const qcard=p=>`<article class="pq"><div class="pq-top"><span class="pq-outlet">${esc(p.outlet)}</span>${score(p.score)}</div><p class="k">${esc(p.type)}${p.release?' · <em>'+esc(p.release)+'</em>':''}${p.writer?' · '+esc(p.writer):''}${p.date?' · '+fd(p.date):''}</p><blockquote>“${esc(p.quote)}”</blockquote>${p.detail?`<p class="pq-detail">${esc(p.detail)}</p>`:''}${src_(p)}</article>`;
+ const ccard=c=>`<article class="chart-hl"><p class="k">Radio · ${esc(c.outlet)}</p><h3>${esc(c.headline)}</h3>${(c.stats||[]).length?`<div class="stats">${c.stats.map(s=>`<div class="stat"><b>${esc(s.value)}</b><span>${esc(s.label)}</span></div>`).join('')}</div>`:''}${c.detail?`<p class="chart-detail">${esc(c.detail)}</p>`:''}${ones.length?`<ul class="ones">${ones.map(o=>`<li><span class="n1">#1</span><span><b>${esc(o.detail||o.headline)}</b><small>${fd(o.date)}</small></span></li>`).join('')}</ul>`:''}${src_(c)}</article>`;
+ const card=p=>`<article class="pr ${esc(p.type)}"><p class="k">${esc(p.type)} · ${esc(p.outlet)}${p.date?' · '+fd(p.date):''}</p><h3>${esc(p.headline)}</h3>${p.detail?`<p>${esc(p.detail)}</p>`:''}${src_(p)}</article>`;
+ const row=p=>`<li><span class="ad">${fd(p.date)}</span><span class="at"><b>${esc(p.outlet)}</b> · ${esc(p.headline)}${p.writer?' <small>by '+esc(p.writer)+'</small>':''}${p.detail?'<br><small>'+esc(p.detail)+'</small>':''}${p.quote?`<q>${esc(p.quote)}</q>`:''}</span>${p.url?`<a href="${esc(p.url)}" target="_blank" rel="noopener" aria-label="Source: ${esc(p.outlet)}">Source →</a>`:''}</li>`;
+ let h='<div class="press-feature">'+quotes.map(qcard).join('')+(chart?ccard(chart):ones.map(card).join(''))+'</div>';
+ if(rest.length)h+='<div class="press">'+rest.map(card).join('')+'</div>';
+ if(arch.length)h+=`<details class="press-more"><summary>More press <span>(${arch.length})</span></summary><ul class="arch">${arch.map(row).join('')}</ul></details>`;
+ $('press-list').innerHTML=h;
+}).catch(()=>fail('press-list','Press'));
 })();

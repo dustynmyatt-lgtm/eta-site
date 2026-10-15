@@ -101,11 +101,21 @@ content:
     format: json
     list: true
     fields:
-      - { name: type, label: Type, type: select, options: { values: [radio, review, feature, interview, release] } }
+      - { name: type, label: Type, type: select, options: { values: [review, chart, radio, feature, interview, release] } }
+      - { name: featured, label: "Spotlight (off = goes in the 'More press' list)", type: boolean }
       - { name: outlet, label: "Outlet / station", type: string, required: true }
+      - { name: writer, label: "Writer (if named)", type: string }
       - { name: date, label: Date, type: date, options: { format: "yyyy-MM-dd" } }
       - { name: headline, label: Headline, type: string, required: true }
+      - { name: release, label: "Release reviewed", type: string }
+      - { name: score, label: "Score (exactly as given, e.g. 7.5/10)", type: string }
       - { name: detail, label: Detail, type: string }
       - { name: quote, label: "Quote (exact words only)", type: text }
       - { name: url, label: "Source link", type: string }
-      - { name: todo, label: "Internal note (shows as TODO, clear before launch)", type: string }
+      - name: stats
+        label: "Chart stats (chart highlight only)"
+        type: object
+        list: true
+        fields:
+          - { name: value, label: "Number (e.g. 22+)", type: string }
+          - { name: label, label: Label, type: string }
