@@ -48,7 +48,7 @@ load('gigs').then(gs=>{const up=$('up'),pa=$('past');gs.sort((a,b)=>String(a.dat
  if(tg&&P.length>SHOW){tg.hidden=false;const lbl=()=>tg.textContent=pa.classList.contains('all')?'Show fewer':`Show all ${P.length} shows`;lbl();tg.onclick=()=>{tg.setAttribute('aria-expanded',pa.classList.toggle('all'));lbl()}}
 }).catch(()=>fail('up','Gig list'));
 
-load('merch').then(ms=>{const real=ms.filter(m=>m.available&&m.url);
+if($('merch-grid'))load('merch').then(ms=>{const real=ms.filter(m=>m.available&&m.url);
  if(!real.length){const s=$('merch-grid');s.innerHTML='';s.hidden=true;return;}
  $('merch-grid').innerHTML=real.map(m=>`<div class="card prod">${m.image?`<img class="pimg" src="${src(m.image)}" loading="lazy" width="600" height="600" alt="${esc(m.title)}">`:''}<h3>${esc(m.title)}</h3>${m.description?`<p class="sub">${esc(m.description)}</p>`:''}${m.price?`<p class="price">${esc(m.price)}</p>`:''}<a class="btn sm" href="${esc(m.url)}" target="_blank" rel="noopener">Buy on ${esc(m.vendor||'store')}</a></div>`).join('')}).catch(()=>fail('merch-grid','Merch'));
 load('press').then(ps=>{
