@@ -27,6 +27,9 @@ You update the site at **https://app.pagescms.org** – no code needed. Every sa
 ## Merch, band members, releases
 Same idea: open the section, change the text or photo, **Save**. For merch, paste the exact product page link and the vendor's name, and only list prices exactly as the vendor shows them. Untick "Show Buy button" for items that aren't on sale online yet.
 
+## Booking contact
+The Booking & Contact section and the footer send booking requests to the band's Facebook Messenger (https://m.me/Easttexasadrenaline) or by email to easttexasadrenaline@yahoo.com. If either changes, ask Grok Bot to update the page.
+
 ## Oops?
 Every change is saved in history. If something breaks, message Sam/Grok Bot and it can be rolled back.
 Please don't post anything about a show or product until it's confirmed.

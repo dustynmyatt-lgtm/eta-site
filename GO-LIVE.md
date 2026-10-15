@@ -10,4 +10,4 @@ Prices checked Oct 12, 2026. Nothing here has been bought or created yet.
 - [ ] **5. Pages CMS**: go to https://app.pagescms.org, sign in with the GitHub account, install the Pages CMS GitHub app on the repo, and open the project (it reads `.pages.yml`).
 - [ ] **6. Invite admins**: in the project's collaborator settings, invite Dustyn and Darrel by email. They don't need GitHub accounts.
 - [ ] **7. Test**: have each admin add and then delete a test news post; confirm the live site updates in about 1–2 minutes.
-- [ ] **8. Before launch**: fill the remaining TODOs (booking email; add merch items to data/merch.json only once they have a real vendor listing). Spotify + YouTube links were added Oct 12 evening.
+- [ ] **8. Before launch**: fill the remaining TODOs (add merch items to data/merch.json only once they have a real vendor listing). Spotify + YouTube links were added Oct 12 evening. Booking contact is set (Oct 15, 2026): Facebook Messenger (https://m.me/Easttexasadrenaline) or easttexasadrenaline@yahoo.com.
