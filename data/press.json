@@ -1,8 +1,62 @@
 [
- {"type":"radio","outlet":"Radio Marlab","date":"2024-05-19","headline":"#1 on the Radio Marlab daily top 10","detail":"\"1000 Miles\" (title track, 1000 Miles EP)","quote":"","url":"","todo":"Add a link to the chart post if Dustyn has one"},
- {"type":"radio","outlet":"Radio Marlab","date":"2024-07-23","headline":"#1 on the Radio Marlab daily top 10","detail":"\"Atomic Stupidity\" (Salt EP)","quote":"","url":"","todo":"Add a link to the chart post if Dustyn has one"},
- {"type":"review","outlet":"Overtone","date":"2026-06-15","headline":"Knockout: 7.5/10","detail":"Highlights: \"Lawnmower Fistfight\", \"Day by Day\" and \"Misfortune\"","quote":"Nearly half a hour of heavy, balls-to-the-wall punk, and is a lot of fun! The band definitely have a new fan in me.","url":"https://overtone.site/2026/06/15/new-music-mondays-sublime-koe-wetzel-and-more/","todo":"Dustyn: OK to quote this on a family-friendly site (contains \"balls-to-the-wall\")?"},
- {"type":"feature","outlet":"Dixie Rocker","date":"2023-11-26","headline":"Song of the Day: \"Die Scared\"","detail":"","quote":"","url":"https://dixierocker.com/2023/11/26/song-of-the-day-east-texas-adrenaline-die-scared/","todo":""},
- {"type":"review","outlet":"RAMzine (UK)","date":"2018-02-11","headline":"Built to Last review","detail":"","quote":"Some tasty riffs… the guitar playing is the saviour.","url":"https://ramzine.co.uk/reviews/review-east-texas-adrenaline-built-to-last/","todo":"Mixed review; Dustyn to decide if it stays"},
- {"type":"release","outlet":"Wrong Track Records","date":"2020-10","headline":"\"Stand Up\" limited-edition 7-inch vinyl","detail":"Pressed on black, white and clear vinyl","quote":"","url":"https://www.youtube.com/watch?v=et7ij1Upni0","todo":""}
+ {
+  "type": "radio",
+  "outlet": "Radio Marlab",
+  "date": "2024-05-19",
+  "headline": "#1 on the Radio Marlab daily top 10",
+  "detail": "\"1000 Miles\" (title track, 1000 Miles EP)",
+  "quote": "",
+  "url": "",
+  "todo": "Add a link to the chart post if Dustyn has one"
+ },
+ {
+  "type": "radio",
+  "outlet": "Radio Marlab",
+  "date": "2024-07-23",
+  "headline": "#1 on the Radio Marlab daily top 10",
+  "detail": "\"Atomic Stupidity\" (Salt EP)",
+  "quote": "",
+  "url": "",
+  "todo": "Add a link to the chart post if Dustyn has one"
+ },
+ {
+  "type": "review",
+  "outlet": "Overtone",
+  "date": "2026-06-15",
+  "headline": "Knockout: 7.5/10",
+  "detail": "Highlights: \"Lawnmower Fistfight\", \"Day by Day\" and \"Misfortune\"",
+  "quote": "Nearly half a hour of heavy, balls-to-the-wall punk, and is a lot of fun! The band definitely have a new fan in me.",
+  "url": "https://overtone.site/2026/06/15/new-music-mondays-sublime-koe-wetzel-and-more/",
+  "todo": ""
+ },
+ {
+  "type": "feature",
+  "outlet": "Dixie Rocker",
+  "date": "2023-11-26",
+  "headline": "Song of the Day: \"Die Scared\"",
+  "detail": "",
+  "quote": "",
+  "url": "https://dixierocker.com/2023/11/26/song-of-the-day-east-texas-adrenaline-die-scared/",
+  "todo": ""
+ },
+ {
+  "type": "review",
+  "outlet": "RAMzine (UK)",
+  "date": "2018-02-11",
+  "headline": "Built to Last review",
+  "detail": "",
+  "quote": "Some tasty riffs\u2026 the guitar playing is the saviour.",
+  "url": "https://ramzine.co.uk/reviews/review-east-texas-adrenaline-built-to-last/",
+  "todo": ""
+ },
+ {
+  "type": "release",
+  "outlet": "Wrong Track Records",
+  "date": "2020-10",
+  "headline": "\"Stand Up\" limited-edition 7-inch vinyl",
+  "detail": "Pressed on black, white and clear vinyl",
+  "quote": "",
+  "url": "https://www.youtube.com/watch?v=et7ij1Upni0",
+  "todo": ""
+ }
 ]
