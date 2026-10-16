@@ -124,3 +124,11 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--b);outline-offset:2
 .ps-w{margin-left:auto;flex:0 0 auto;align-self:center;color:#000;background:var(--b);padding:.25rem .6rem;font-weight:800;font-size:.8rem;text-transform:uppercase;text-decoration:none;white-space:nowrap}.ps-w:hover,.ps-w:focus-visible{background:var(--a);color:#fff}
 .post-link{margin:.6rem 0 0}.post-link a{font-weight:600}
 .uc{min-height:55vh;padding-top:6rem}.uc .cta{max-width:640px;margin:1.5rem auto;text-align:center}
+/* Wrong Track Records label logo */
+.label-logo{display:block;height:auto;border-radius:10px;border:2px solid #ffffff22;box-shadow:0 2px 10px #0008}
+.label-logo.sm{width:56px;border-radius:8px}.label-logo.md{width:112px}
+@media(min-width:760px){.label-logo.md{width:140px}}
+.label-card{display:flex;align-items:center;gap:1rem;margin:1.2rem 0;padding:.8rem;background:var(--p);border-left:4px solid var(--b);color:var(--t);text-decoration:none;max-width:28rem}
+.label-card span{font-weight:700;text-transform:uppercase;letter-spacing:.5px}.label-card b{display:block;color:var(--b);font-family:Impact,"Arial Black",sans-serif;font-size:1.3rem;font-weight:400}
+.label-card:hover .label-logo,.label-logo-link:hover .label-logo{border-color:var(--b)}
+.label-foot{display:flex;align-items:center;justify-content:center;gap:.7rem;margin-top:.6rem}
