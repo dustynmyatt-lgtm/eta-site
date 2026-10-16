@@ -8,3 +8,6 @@ build-bundle.py
 desk-*.png
 shot-*.png
 node_modules
+worker
+tools
+.wrangler
