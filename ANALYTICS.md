@@ -49,7 +49,7 @@ Do these after this branch is approved and merged. Steps 1 and 2 can also be don
   ```bash
   curl "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/analytics_engine/sql" \
     -H "Authorization: Bearer $CF_ANALYTICS_TOKEN" \
-    --data "SELECT blob2 AS category, blob3 AS destination, SUM(_sample_interval) AS clicks FROM eta_clicks WHERE blob1 = 'click' AND timestamp > NOW() - INTERVAL '7' DAY GROUP BY category, destination ORDER BY clicks DESC FORMAT TabSeparatedWithNames"
+    --data "SELECT blob2 AS category, blob3 AS destination, SUM(_sample_interval) AS clicks FROM eta_clicks WHERE blob1 = 'click' AND timestamp > NOW() - INTERVAL '7' DAY GROUP BY category, destination ORDER BY clicks DESC FORMAT TabSeparated"
   ```
   (Use `SUM(_sample_interval)`, not `COUNT()`. Analytics Engine may sample at high volume.)
 
