@@ -132,3 +132,10 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--b);outline-offset:2
 .label-card span{font-weight:700;text-transform:uppercase;letter-spacing:.5px}.label-card b{display:block;color:var(--b);font-family:Impact,"Arial Black",sans-serif;font-size:1.3rem;font-weight:400}
 .label-card:hover .label-logo,.label-logo-link:hover .label-logo{border-color:var(--b)}
 .label-foot{display:flex;align-items:center;justify-content:center;gap:.7rem;margin-top:.6rem}
+/* Merch shop page */
+.shop{padding-top:4rem}.shop .lede{margin:.4rem 0 1rem}.btn.big{font-size:1.25rem;padding:1.1rem 2.2rem}
+.shop-grid{grid-template-columns:repeat(2,1fr);margin-top:1.5rem}@media(min-width:760px){#merch .shop-grid{grid-template-columns:repeat(3,1fr)}}
+.shop-item h3{font-size:1rem;margin:.2rem 0}.shop-item .sub{color:#aaa;font-size:.9rem;margin:0 0 .4rem}.shop-item .pimg{background:#fff}
+.ship{margin-top:1.5rem;font-weight:700;color:var(--b)}
+.instore{margin-top:1.25rem;padding:.9rem 1rem;border-left:4px solid var(--b);background:rgba(255,255,255,.04);border-radius:6px}
+.thanks{margin-top:1.25rem;text-align:center;font-size:1.1rem;font-weight:700;color:var(--b)}

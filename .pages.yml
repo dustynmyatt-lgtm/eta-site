@@ -46,21 +46,6 @@ content:
       - { name: caption, label: Caption, type: string }
       - { name: alt, label: "Describe the photo (for screen readers)", type: string }
 
-  - name: merch
-    label: Merch
-    type: file
-    path: data/merch.json
-    format: json
-    list: true
-    fields:
-      - { name: title, label: Item name, type: string, required: true }
-      - { name: description, label: Short description, type: string }
-      - { name: price, label: "Price (as shown on the vendor's page)", type: string }
-      - { name: image, label: Photo, type: image }
-      - { name: url, label: "Vendor product page link", type: string }
-      - { name: vendor, label: "Vendor name (shown as Buy on …)", type: string }
-      - { name: available, label: "Show Buy button (on sale online)", type: boolean }
-
   - name: members
     label: Band Members
     type: file

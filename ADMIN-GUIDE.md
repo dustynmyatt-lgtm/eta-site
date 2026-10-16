@@ -5,7 +5,7 @@ You update the site at **https://app.pagescms.org** – no code needed. Every sa
 ## Logging in
 1. Open the invite email from Pages CMS and click the link (first time only).
 2. After that, go to https://app.pagescms.org, sign in with the same email, and pick the **East Texas Adrenaline** site.
-3. The menu on the left lists what you can edit: News, Gigs, Photo Gallery, Merch, Band Members, Releases.
+3. The menu on the left lists what you can edit: News, Gigs, Photo Gallery, Band Members, Releases, Press & Radio.
 
 ## Post news
 1. Click **News** → **Add an entry** (the + button).
@@ -24,8 +24,11 @@ You update the site at **https://app.pagescms.org** – no code needed. Every sa
 3. Add a **Caption** and a short description of what's in the picture.
 4. **Save**.
 
-## Merch, band members, releases
-Same idea: open the section, change the text or photo, **Save**. For merch, paste the exact product page link and the vendor's name, and only list prices exactly as the vendor shows them. Untick "Show Buy button" for items that aren't on sale online yet.
+## Band members, releases
+Same idea: open the section, change the text or photo, **Save**.
+
+## Merch
+Merch is sold through the ETA Printful store (https://etamerch.printful.me). Add or change products and prices in Printful. The Merch page (merch.html) lists the current items, so if products or prices change, ask Grok Bot to update the page to match.
 
 ## Booking contact
 The Booking & Contact section and the footer send booking requests to the band's Facebook Messenger (https://m.me/Easttexasadrenaline) or by email to easttexasadrenaline@yahoo.com. If either changes, ask Grok Bot to update the page.
