@@ -1,23 +1,34 @@
-// Tiny check of the Straight From the Band shipping rule in sftb.js.
+// Check of the Straight From the Band shipping rule in sftb.js.
 // Run: node tools/sftb-shipping-test.mjs
 import fs from 'fs';
 const src = fs.readFileSync(new URL('../sftb.js', import.meta.url), 'utf8');
-const grab = re => { const m = src.match(re); if(!m) throw new Error('not found: ' + re); return m[0]; };
-const code = [grab(/var SFTB_SHIP_BASE[^;]*;/), grab(/var SFTB_SHIP_PER_EXTRA_BIG[^;]*;/),
-  grab(/var CAT = \{[\s\S]*?\n\};/), grab(/function shipFor\(lines\)\{[\s\S]*?\n\}/), 'return shipFor;'].join('\n');
-const shipFor = new Function(code)();
-const L = (id, qty) => ({id, qty});
+const m = src.match(/\/\/ ---- sftb:data:start[\s\S]*?\/\/ ---- sftb:data:end ----/);
+if (!m) throw new Error('sftb:data block not found in sftb.js');
+const {shipFor, CAT} = new Function(m[0] + '\nreturn {shipFor, CAT};')();
+const L = (id, qty = 1) => { if (!CAT[id]) throw new Error('unknown item ' + id); return {id, qty}; };
 const cases = [
   ['empty cart', [], 0],
-  ['1 shirt', [L('skulltee',1)], 5],
-  ['2 shirts', [L('skulltee',1), L('ringer',1)], 7],
-  ['2 shirts, one line', [L('skulltee',2)], 7],
-  ['1 shirt + 1 sticks', [L('ringer',1), L('sticks',1)], 7],
-  ['3 shirts + 2 sticks', [L('skulltee',2), L('ringer',1), L('sticks',2)], 13],
-  ['only picks', [L('pick-darrell',3), L('pick-gedy',1)], 5],
-  ['only tins', [L('tin',2)], 5],
-  ['1 tee + 1 tin (PayPal test cart)', [L('skulltee',1), L('tin',1)], 5],
+  ['1 shirt', [L('skulltee')], 5],
+  ['2 shirts', [L('skulltee'), L('ringer')], 7],
+  ['2 shirts, one line', [L('skulltee', 2)], 7],
+  ['1 shirt + 1 sticks', [L('ringer'), L('sticks')], 7],
+  ['3 shirts + 2 sticks', [L('skulltee', 2), L('ringer'), L('sticks', 2)], 13],
+  ['only picks', [L('pick-darrell', 3), L('pick-gedy')], 5],
+  ['2 picks', [L('pick-darrell', 2)], 5],
+  ['only tins', [L('tin', 2)], 5],
+  ['1 tee + 1 tin', [L('skulltee'), L('tin')], 5],
+  ['1 CD', [L('cd-salt')], 5],
+  ['3 CDs', [L('cd-salt'), L('cd-friction'), L('cd-knockout')], 7],
+  ['3 CDs, one line', [L('cd-salt', 3)], 7],
+  ['1 vinyl + 3 CDs', [L('vinyl-knockout'), L('cd-salt'), L('cd-friction'), L('cd-knockout')], 5],
+  ['1 shirt + 1 vinyl', [L('skulltee'), L('vinyl-knockout')], 7],
+  ['2 CDs + 1 pick', [L('cd-salt'), L('cd-friction'), L('pick-gedy')], 6],
+  ['1 shirt + 2 CDs', [L('ringer'), L('cd-salt'), L('cd-friction')], 5],
+  ['vinyl + 2 CDs + 1 shirt (PayPal test cart)', [L('vinyl-knockout'), L('cd-knockout'), L('cd-digital-toys'), L('skulltee')], 7],
 ];
 let fail = 0;
-for (const [name, lines, want] of cases) { const got = shipFor(lines); const ok = got === want; if(!ok) fail++; console.log((ok?'PASS':'FAIL') + '  ' + name + ': ' + got + (ok?'':' (want ' + want + ')')); }
+for (const [name, lines, want] of cases) { const got = shipFor(lines); const ok = got === want; if (!ok) fail++; console.log((ok ? 'PASS' : 'FAIL') + '  ' + name + ': ' + got + (ok ? '' : ' (want ' + want + ')')); }
+const bad = Object.values(CAT).filter(c => !['big', 'cd', 'none'].includes(c.ship)).map(c => c.id);
+if (bad.length) { fail++; console.log('FAIL  items without a valid ship class: ' + bad.join(', ')); }
+console.log(fail ? fail + ' failed' : 'all ' + cases.length + ' cases passed');
 process.exit(fail ? 1 : 0);

@@ -2,24 +2,66 @@
    The cart lives only in this browser's localStorage; nothing is sent anywhere
    until the fan clicks checkout, which posts a standard PayPal cart-upload form. */
 (function(){
-// Shipping (USD), set by Dustyn 2026-10-17: base charge once per order, plus a charge
-// for each BIG unit (tees, drumstick pairs) after the first. Picks and tins add nothing.
+// ---- sftb:data:start (pure data + shipping rule; tools/sftb-shipping-test.mjs evaluates this block) ----
+// Shipping (USD), set by the band 2026-10-17. Each item has a ship class:
+//  'big'  = shirts, drumstick pairs, vinyl: base covers the first, each extra adds PER_EXTRA_BIG.
+//  'cd'   = CDs: free with any big item; otherwise base covers the first CD, each extra adds PER_EXTRA_CD.
+//  'none' = picks, tins: never add shipping.
+// An empty cart has no shipping.
 var SFTB_SHIP_BASE = 5;
 var SFTB_SHIP_PER_EXTRA_BIG = 2;
+var SFTB_SHIP_PER_EXTRA_CD = 1;
+
+// Groups render in this order. Add a group = one entry here (heading '' = no sub-heading).
+var SFTB_GROUPS = [
+ {id:'merch', heading:''},
+ {id:'music', heading:'Physical CDs & Vinyl', cls:'sftb-music-grid'}
+];
+
+// Items render inside their group in this order. Add an item = one entry here.
+//  id (unique, kept in saved carts), group, name (card + cart + PayPal), price (USD), ship ('big'|'cd'|'none'),
+//  img, w, h, alt, desc; optional: opt + opts (a required choice such as Size), cartName, dark (black image box).
+var SFTB_ITEMS = [
+ {id:'ringer', group:'merch', name:'Lawnmower Fist Fight Ringer Tee', price:30, ship:'big', opt:'Size', opts:['M','L','XL','2XL'],
+  img:'img/merch/band/lawnmower-fist-fight-ringer-tee.webp', w:417, h:421, alt:'White ringer tee with black trim and a Lawnmower Fist Fight graphic', desc:'White with black trim. Sizes M to 2XL.'},
+ {id:'skulltee', group:'merch', name:'Black Skull & Star Tee', price:30, ship:'big', opt:'Size', opts:['M','L','XL','2XL'],
+  img:'img/merch/band/black-skull-star-tee.webp', w:500, h:500, alt:'Black tee with a white skull and star East Texas Adrenaline design', desc:'Sizes M to 2XL.'},
+ {id:'sticks', group:'merch', name:'Scott Credeur Signature Drumsticks', cartName:'Scott Credeur Signature Drumsticks (pair)', price:15, ship:'big',
+  img:'img/merch/band/scott-credeur-drumsticks.webp', w:1000, h:277, alt:'Pair of wood drumsticks printed with East Texas Adrenaline and Scott Credeur', desc:'One pair.'},
+ {id:'tin', group:'merch', name:'Pick Tin', price:8, ship:'none', opt:'Color', opts:['Silver','Black'],
+  img:'img/merch/band/pick-tin-silver.webp', w:625, h:611, alt:'Brushed silver pick tin with a red skull and star East Texas Adrenaline design', desc:'Choose silver or black. Photo shows silver.'},
+ {id:'pick-darrell', group:'merch', name:'Darrell Olbrych Signature Pick', price:2, ship:'none',
+  img:'img/merch/band/darrell-olbrych-pick.webp', w:1000, h:493, alt:'Black guitar pick, front with skull and star logo, back with Darrell Olbrych name and signature', desc:'Single pick.'},
+ {id:'pick-gedy', group:'merch', name:'Gedy Olbrych Signature Pick', price:2, ship:'none', dark:true,
+  img:'img/merch/band/gedy-olbrych-pick.webp', w:1000, h:494, alt:'White guitar pick, front with East Texas Adrenaline skull and star logo, back with Gedy Olbrych name', desc:'Single pick.'},
+ // Physical music: titles exactly as in data/releases.json. Vinyl first, then CDs newest first.
+ {id:'vinyl-knockout', group:'music', name:'Knockout (Vinyl)', price:30, ship:'big', img:'img/merch/band/covers/knockout.webp', w:600, h:600, alt:'Knockout album cover', desc:'Album on vinyl · 2026'},
+ {id:'cd-knockout', group:'music', name:'Knockout (CD)', price:6, ship:'cd', img:'img/merch/band/covers/knockout.webp', w:600, h:600, alt:'Knockout album cover', desc:'Album · 2026'},
+ {id:'cd-digital-toys', group:'music', name:'Digital Toys (CD)', price:6, ship:'cd', img:'img/merch/band/covers/digital-toys.webp', w:600, h:600, alt:'Digital Toys EP cover', desc:'EP · 2025'},
+ {id:'cd-salt', group:'music', name:'Salt (CD)', price:6, ship:'cd', img:'img/merch/band/covers/salt.webp', w:600, h:600, alt:'Salt EP cover', desc:'EP · 2024'},
+ {id:'cd-1000-miles', group:'music', name:'1000 Miles (CD)', price:6, ship:'cd', img:'img/merch/band/covers/1000-miles.webp', w:600, h:600, alt:'1000 Miles EP cover', desc:'EP · 2023'},
+ {id:'cd-die-scared', group:'music', name:'Die Scared (CD)', price:6, ship:'cd', img:'img/merch/band/covers/die-scared.webp', w:600, h:600, alt:'Die Scared EP cover', desc:'EP · 2022'},
+ {id:'cd-flossing-of-society', group:'music', name:'Flossing of Society (CD)', price:6, ship:'cd', img:'img/merch/band/covers/flossing-of-society.webp', w:600, h:600, alt:'Flossing of Society album cover', desc:'Album · 2021'},
+ {id:'cd-friction', group:'music', name:'Friction (CD)', price:6, ship:'cd', img:'img/merch/band/covers/friction.webp', w:600, h:600, alt:'Friction EP cover', desc:'EP · 2019'},
+ {id:'cd-built-to-last', group:'music', name:'Built to Last (CD)', price:6, ship:'cd', img:'img/merch/band/covers/built-to-last.webp', w:600, h:600, alt:'Built to Last album cover', desc:'Album · 2018'},
+ {id:'cd-east-texas-adrenaline', group:'music', name:'East Texas Adrenaline (CD)', price:6, ship:'cd', img:'img/merch/band/covers/east-texas-adrenaline.webp', w:600, h:600, alt:'East Texas Adrenaline album cover', desc:'Album · 2017'}
+];
+var CAT = {};
+SFTB_ITEMS.forEach(function(it){ CAT[it.id] = it; });
+
+function shipFor(lines){
+ if(!lines.length) return 0;
+ var big = 0, cds = 0;
+ lines.forEach(function(l){ var c = CAT[l.id]; if(!c) return; if(c.ship === 'big') big += l.qty; else if(c.ship === 'cd') cds += l.qty; });
+ return SFTB_SHIP_BASE + SFTB_SHIP_PER_EXTRA_BIG * Math.max(0, big - 1) + (big ? 0 : SFTB_SHIP_PER_EXTRA_CD * Math.max(0, cds - 1));
+}
+// ---- sftb:data:end ----
+
 var PAYPAL_URL = 'https://www.paypal.com/cgi-bin/webscr';
 var PAYPAL_BUSINESS = 'doandjb@sbcglobal.net';
 var RETURN_URL = 'https://easttexasadrenaline.com/merch.html?order=thanks'; // after payment
 var CANCEL_URL = 'https://easttexasadrenaline.com/merch.html';
 var KEY = 'eta_sftb_cart', MAXQ = 10;
-// Catalog is the source of truth for names and prices (stored cart only keeps id, option, qty).
-var CAT = {
- 'ringer':      {name:'Lawnmower Fist Fight Ringer Tee', price:30, big:true, opt:'Size',  opts:['M','L','XL','2XL']},
- 'skulltee':    {name:'Black Skull & Star Tee',          price:30, big:true, opt:'Size',  opts:['M','L','XL','2XL']},
- 'sticks':      {name:'Scott Credeur Signature Drumsticks (pair)', price:15, big:true},
- 'tin':         {name:'Pick Tin',                        price:8,  big:false,  opt:'Color', opts:['Silver','Black']},
- 'pick-darrell':{name:'Darrell Olbrych Signature Pick',  price:2, big:false},
- 'pick-gedy':   {name:'Gedy Olbrych Signature Pick',     price:2, big:false}
-};
 var root = document.getElementById('straight-from-band'); if(!root) return;
 var $ = function(id){return document.getElementById(id)};
 var money = function(n){return '$' + n.toFixed(2)};
@@ -45,14 +87,9 @@ function load(){
  }catch(e){ return []; }
 }
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(cart)); }catch(e){} }
-function label(l){ var c = CAT[l.id]; return c.name + (c.opt ? ' - ' + c.opt + ' ' + l.opt : ''); }
+function cname(c){ return c.cartName || c.name; }
+function label(l){ var c = CAT[l.id]; return cname(c) + (c.opt ? ' - ' + c.opt + ' ' + l.opt : ''); }
 function subtotal(){ return cart.reduce(function(s,l){ return s + CAT[l.id].price * l.qty; }, 0); }
-// ship = base + per * max(0, bigUnits - 1); an empty cart has no shipping.
-function shipFor(lines){
- if(!lines.length) return 0;
- var big = lines.reduce(function(s,l){ return s + (CAT[l.id] && CAT[l.id].big ? l.qty : 0); }, 0);
- return SFTB_SHIP_BASE + SFTB_SHIP_PER_EXTRA_BIG * Math.max(0, big - 1);
-}
 function total(){ return subtotal() + shipFor(cart); }
 function count(){ return cart.reduce(function(s,l){ return s + l.qty; }, 0); }
 // Visible confirmation right under the card's Add button (screen readers get the live region instead).
@@ -69,7 +106,7 @@ function render(){
  cart.forEach(function(l, i){
   var c = CAT[l.id], li = document.createElement('li');
   var name = document.createElement('span'); name.className = 'sftb-ln';
-  name.textContent = c.name; if(c.opt){ var o = document.createElement('small'); o.textContent = c.opt + ': ' + l.opt; name.appendChild(o); }
+  name.textContent = cname(c); if(c.opt){ var o = document.createElement('small'); o.textContent = c.opt + ': ' + l.opt; name.appendChild(o); }
   var q = document.createElement('label'); q.className = 'sftb-lq';
   var qs = document.createElement('span'); qs.className = 'vh'; qs.textContent = 'Quantity for ' + label(l);
   var qi = document.createElement('input'); qi.type = 'number'; qi.min = 1; qi.max = MAXQ; qi.value = l.qty; qi.inputMode = 'numeric';
@@ -105,20 +142,39 @@ if('IntersectionObserver' in window){
  io.observe($('sftb-cart')); var cu = root.querySelector('.sftb-custom'); if(cu) io.observe(cu);
 }
 
+// Build the item cards from SFTB_GROUPS / SFTB_ITEMS.
+var esc = function(v){ return String(v).replace(/[&<>"]/g, function(ch){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]; }); };
+function cardHTML(it){
+ var opt = it.opts ? '<label class="sftb-f"><span>' + esc(it.opt) + '</span><select name="opt"><option value="">Choose</option>' +
+  it.opts.map(function(o){ return '<option>' + esc(o) + '</option>'; }).join('') + '</select></label>' : '';
+ return '<div class="card prod sftb-item" data-id="' + esc(it.id) + '"><img class="pimg sftb-img' + (it.dark ? ' dark' : '') + '" src="' + esc(it.img) +
+  '" width="' + it.w + '" height="' + it.h + '" loading="lazy" alt="' + esc(it.alt) + '"><h3>' + esc(it.name) + '</h3><p class="price">' + whole(it.price) +
+  '</p><p class="sub">' + esc(it.desc) + '</p><div class="sftb-opts">' + opt +
+  '<label class="sftb-f"><span>Qty</span><input type="number" name="qty" min="1" max="' + MAXQ + '" value="1" inputmode="numeric"></label></div>' +
+  '<button type="button" class="btn sm sftb-add">Add to cart</button></div>';
+}
 var whole = function(n){ return '$' + (n % 1 ? n.toFixed(2) : n); };
+var holder = $('sftb-groups');
+if(holder) holder.innerHTML = SFTB_GROUPS.map(function(g){
+ var items = SFTB_ITEMS.filter(function(it){ return it.group === g.id; }); if(!items.length) return '';
+ return (g.heading ? '<h4 class="sftb-group-h" id="sftb-g-' + esc(g.id) + '">' + esc(g.heading) + '</h4>' : '') +
+  '<div class="grid shop-grid sftb-grid' + (g.cls ? ' ' + esc(g.cls) : '') + '"' + (g.heading ? ' role="group" aria-labelledby="sftb-g-' + esc(g.id) + '"' : '') + '>' +
+  items.map(cardHTML).join('') + '</div>';
+}).join('');
 root.querySelectorAll('.sftb-ship-base').forEach(function(e){ e.textContent = whole(SFTB_SHIP_BASE); });
 root.querySelectorAll('.sftb-ship-extra').forEach(function(e){ e.textContent = whole(SFTB_SHIP_PER_EXTRA_BIG); });
+root.querySelectorAll('.sftb-ship-cd').forEach(function(e){ e.textContent = whole(SFTB_SHIP_PER_EXTRA_CD); });
 root.querySelectorAll('.sftb-item').forEach(function(card){
  card.querySelector('.sftb-add').addEventListener('click', function(){
   var id = card.getAttribute('data-id'), c = CAT[id]; if(!c) return;
   var sel = card.querySelector('select[name=opt]'), opt = sel ? sel.value : '';
-  if(c.opts && c.opts.indexOf(opt) < 0){ say('Please choose a ' + c.opt.toLowerCase() + ' for the ' + c.name + '.'); flash(card, 'Choose a ' + c.opt.toLowerCase() + ' first.', true); sel.focus(); return; }
+  if(c.opts && c.opts.indexOf(opt) < 0){ say('Please choose a ' + c.opt.toLowerCase() + ' for the ' + cname(c) + '.'); flash(card, 'Choose a ' + c.opt.toLowerCase() + ' first.', true); sel.focus(); return; }
   var qi = card.querySelector('input[name=qty]'), q = Math.min(MAXQ, Math.max(1, parseInt(qi.value, 10) || 1)); qi.value = q;
   var line = cart.filter(function(l){ return l.id === id && (l.opt || '') === opt; })[0];
   if(line) line.qty = Math.min(MAXQ, line.qty + q); else cart.push({id:id, opt:opt, qty:q});
   save(); render();
   flash(card, '\u2713 Added to cart');
-  say('Added ' + q + ' x ' + (c.opt ? c.name + ' (' + c.opt + ' ' + opt + ')' : c.name) + ' to your cart. ' + count() + ' item' + (count() === 1 ? '' : 's') + ', total ' + money(total()) + '.');
+  say('Added ' + q + ' x ' + (c.opt ? cname(c) + ' (' + c.opt + ' ' + opt + ')' : cname(c)) + ' to your cart. ' + count() + ' item' + (count() === 1 ? '' : 's') + ', total ' + money(total()) + '.');
  });
 });
 

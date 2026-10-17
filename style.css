@@ -194,4 +194,9 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--b);outline-offset:2
 .sftb-added{margin:.45rem 0 0;font-size:.85rem;font-weight:700;color:var(--b)}
 .sftb-added.bad{color:#ff7a7a}
 .sftb-added[hidden]{display:none}
-.sftb-grid+.vh+.sftb-cart{margin-top:1.4rem}
+#sftb-groups+noscript+.vh+.sftb-cart,#sftb-groups+.vh+.sftb-cart{margin-top:1.4rem}
+.sftb-group-h{font-family:Impact,"Arial Black",sans-serif;text-transform:uppercase;letter-spacing:1px;font-size:1.3rem;color:var(--b);margin:2rem 0 0}
+.sftb-music-grid{margin-top:.9rem}
+.sftb-music-grid .pimg{object-fit:cover;background:#222}
+@media(min-width:760px){#merch .sftb-music-grid{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:1000px){#merch .sftb-music-grid{grid-template-columns:repeat(5,1fr)}}
