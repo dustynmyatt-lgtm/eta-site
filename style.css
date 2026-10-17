@@ -11,11 +11,11 @@ nav{display:none;position:absolute;top:100%;left:0;right:0;background:#000;flex-
 section{padding:3.5rem 1rem;max-width:1100px;margin:auto}h2{font-size:2.4rem;color:var(--a);margin-bottom:1rem;border-left:8px solid var(--b);padding-left:.6rem}h3{margin:1.4rem 0 .6rem}
 .grid{display:grid;gap:1rem;grid-template-columns:1fr}.card{background:var(--p);padding:1.2rem;border-top:4px solid var(--a);color:var(--t);text-decoration:none;transition:transform .15s}.card:hover{transform:translateY(-4px)}
 .ph{height:140px;display:grid;place-items:center;background:#222;font:2.5rem Impact,sans-serif;color:var(--a);margin-bottom:.8rem}.role{color:var(--b);font-weight:700}.wanted{border-color:var(--b)}
-.disc{display:grid;gap:.6rem;grid-template-columns:1fr 1fr}.rel{background:var(--p);padding:.8rem;border-left:4px solid var(--a)}.rel b,.rel span{display:block}.rel span{color:#aaa;font-size:.85rem}.rel.new{border-color:var(--b)}
+
 .gigs{list-style:none;padding:0}.gigs li{display:flex;gap:1rem;align-items:center;background:var(--p);padding:1rem;margin-bottom:.6rem;border-left:5px solid var(--a)}.gigs .past{opacity:.7;border-color:#555}
 .d{font-weight:800;color:var(--b);min-width:7rem}.badge{margin-left:auto;background:var(--b);color:#000;padding:.1rem .5rem;font-weight:800}.sub,.inf{color:#bbb}.mail{margin:1rem 0;font-size:1.2rem}
 footer{text-align:center;padding:2rem 1rem;border-top:3px solid var(--a);color:#888}.soc{display:flex;justify-content:center;gap:1.2rem;margin-bottom:.6rem;flex-wrap:wrap}.soc a{display:inline-flex;align-items:center;gap:.35rem;text-decoration:none;color:var(--b);font-weight:700}.soc a:hover{color:#fff}.soc .si{flex:none;vertical-align:middle}.contact-soc{justify-content:flex-start;margin-top:1.2rem}
-@media(min-width:760px){#menu{display:none}nav{display:flex;position:static;flex-direction:row;background:none}.grid{grid-template-columns:repeat(4,1fr)}.disc{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:760px){#menu{display:none}nav{display:flex;position:static;flex-direction:row;background:none}.grid{grid-template-columns:repeat(4,1fr)}}
 .btn.sm{padding:.5rem 1rem;font-size:.85rem;margin-top:.5rem}.btn.dis{background:#444;cursor:not-allowed}
 @media(min-width:760px){#merch .grid{grid-template-columns:repeat(5,1fr)}}
 .hero{background:linear-gradient(180deg,#0b0b0dcc,#0b0b0dee 85%,#0b0b0d),radial-gradient(circle at 70% 30%,#ff2a2a40,transparent 60%),url(img/hero.webp) center/cover}
@@ -28,21 +28,10 @@ footer{text-align:center;padding:2rem 1rem;border-top:3px solid var(--a);color:#
 .bio{margin:.4rem 0;font-style:italic}
 section{scroll-margin-top:64px}#merch>.sub{margin:.4rem 0 1rem}#merch .grid+.sub{margin-top:1.2rem}
 .mail{display:inline-block;margin:0 1rem 1rem 0;vertical-align:middle}
-.cov{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;margin-bottom:.5rem}
 .pimg{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;margin-bottom:.8rem;background:#222}
 .price{font:1.4rem Impact,sans-serif;color:var(--b);margin:.3rem 0}.prod{display:flex;flex-direction:column}.prod .btn{margin-top:auto;align-self:flex-start}
 .ph-card{opacity:.75}
-.eps{display:grid;gap:1.2rem}.logo4{display:grid;grid-template-columns:1fr 1fr;gap:0;max-width:520px;border:3px solid var(--a)}
-.q{position:relative;display:block;line-height:0}.q img{width:100%;height:auto;display:block}
-.q span{position:absolute;left:0;right:0;bottom:0;line-height:1.3;padding:.3rem .4rem;background:#000c;color:#fff;font-weight:700;font-size:.8rem;opacity:.9;transition:opacity .2s}
-@media(hover:hover){.q span{opacity:0}.q:hover span,.q:focus span{opacity:1}}
-.cap{margin-top:.5rem;max-width:520px}.disc.solo{grid-template-columns:1fr;max-width:260px}
 .inperson{background:var(--p);border-left:5px solid var(--b);padding:.7rem 1rem;margin:0 0 1rem}
-@media(min-width:760px){.eps{grid-template-columns:auto 260px;align-items:start}}
-@media(min-width:760px){.eps{grid-template-columns:minmax(0,520px) 220px;justify-content:start;gap:2rem}}
-.logo4{gap:10px;border:0;background:none}.q span{opacity:1!important;background:#000d;font-size:.85rem;padding:.35rem .5rem}
-.q{border:2px solid var(--a)}
-a.rel{color:var(--t);text-decoration:none;display:block}
 .news{display:grid;gap:1.2rem}.post{background:var(--p);border-top:4px solid var(--a);display:grid}.post img{width:100%;height:auto;display:block;aspect-ratio:16/9;object-fit:cover}
 .post-body{padding:1rem 1.2rem}.post-date{color:var(--b);font-weight:800;font-size:.9rem}.post-text p{margin:.5rem 0}
 .gallery figure{margin:0;background:var(--p);border-top:4px solid var(--a)}
@@ -222,3 +211,14 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--b);outline-offset:2
 .sftb-tile .sftb-added{margin:.4rem 0 0}
 @media(min-width:760px){.sftb-epset{grid-template-columns:300px 1fr;grid-template-areas:"head head" "logo buy"}
 .sftb-epset-head{grid-area:head}.sftb-logo4{grid-area:logo;max-width:none}.sftb-epset-buy{grid-area:buy;height:300px}.sftb-tile .sftb-added{position:absolute;top:.7rem;right:.8rem;margin:0}}
+/* Music: discography by year (newest first), video + EP logo beside it on desktop */
+.yr-cols{display:grid;gap:1.4rem}.yr-cols h3{margin:0 0 .5rem}.yr-cols .yt{margin:0 0 .6rem}
+.yr-list{list-style:none;margin:0;padding:0;display:grid;gap:.4rem}
+.yr-row{display:grid;grid-template-columns:3.2rem 48px minmax(0,1fr);gap:.75rem;align-items:center;min-height:44px;background:var(--p);padding:.45rem .7rem;border-left:4px solid var(--a);color:var(--t);text-decoration:none}
+.yr-row.new{border-color:var(--b)}.yr-row:hover,.yr-row:focus-visible{background:#1f1f25}
+.yr-y{font:1.25rem Impact,"Arial Black",sans-serif;color:var(--b)}
+.yr-row img{display:block;width:48px;height:48px;object-fit:cover}
+.yr-t b{display:flex;align-items:center;gap:.4rem}.yr-t small{display:block;color:#aaa;font-size:.82rem}
+.yr-logo{display:grid;grid-template-columns:120px minmax(0,1fr);gap:.8rem;align-items:center;margin-top:1.2rem}.yr-logo .sub{margin:0;font-size:.9rem}
+.yr-logo4{display:grid;grid-template-columns:1fr 1fr;gap:3px;line-height:0}.yr-logo4 a{display:block}.yr-logo4 img{display:block;width:100%;height:auto}
+@media(min-width:760px){.yr-cols{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2rem;align-items:start}}

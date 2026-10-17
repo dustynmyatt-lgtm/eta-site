@@ -18,17 +18,16 @@ const today=(d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${
 load('members').then(ms=>{$('members-grid').innerHTML=ms.map(m=>`<div class="card">${m.photo?`<img class="head" src="${src(m.photo)}" loading="lazy" width="600" height="600" alt="${esc(m.name)}, East Texas Adrenaline">`:''}<h3>${esc(m.name)}</h3><p class="role">${esc(m.role)}</p>${m.bio?`<p class="bio">${esc(m.bio)}</p>`:''}</div>`).join('')}).catch(()=>fail('members-grid','Band info'));
 
 load('releases').then(rs=>{
- const card=r=>`<a class="rel${/NEW/i.test(r.note)?' new':''}" href="${esc(r.link||'#')}" target="_blank" rel="noopener"><img class="cov" src="${src(r.cover)}" loading="lazy" width="600" height="600" alt="${esc(r.title)} cover art"><b>${esc(r.title)}</b><span>${esc(r.year)}${r.note?' · '+esc(r.note):''}</span></a>`;
- $('albums').innerHTML=rs.filter(r=>r.type==='album').sort((a,b)=>b.year-a.year).map(card).join('');
- const vinyl=rs.filter(r=>r.type!=='album'&&r.type!=='ep').sort((a,b)=>b.year-a.year);
- const v=$('vinyl'); if(v){v.innerHTML=vinyl.length?vinyl.map(card).join(''):'<p class="sub">No vinyl releases listed.</p>';}
+ // Music: one row per release, newest first. The four logo EPs also build the small ETA logo, each row showing its corner.
  const order=['top-left','top-right','bottom-left','bottom-right'];
  const q=order.map(p=>rs.find(r=>r.type==='ep'&&r.logo_position===p)).filter(Boolean);
- if(q.length===4){$('logo4').innerHTML=q.map(r=>`<a class="q" href="${esc(r.link||'#')}" target="_blank" rel="noopener" title="${esc(r.title)} (${esc(r.year)})"><img src="${src(r.cover)}" loading="lazy" width="600" height="600" alt="${esc(r.title)} EP cover (${esc(r.year)}), one quarter of the ETA logo"><span>${esc(r.title)} · ${esc(r.year)}</span></a>`).join('');
+ const kind=r=>r.type==='album'?'Album':r.type==='ep'?'EP':r.type;
+ const corner=r=>q.includes(r)?`<span class="sftb-qi q-${esc(r.logo_position)}" title="${esc(r.logo_position.replace('-',' '))} of the EP logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span>`:'';
+ $('discography').innerHTML='<ol class="yr-list" aria-label="Releases by year, newest first">'+rs.slice().sort((a,b)=>b.year-a.year).map(r=>`<li><a class="yr-row${/NEW/i.test(r.note)?' new':''}" href="${esc(r.link||'#')}" target="_blank" rel="noopener"><span class="yr-y">${esc(r.year)}</span><img src="${src(r.cover)}" loading="lazy" width="600" height="600" alt="${esc(r.title)} cover art"><span class="yr-t"><b>${esc(r.title)}${corner(r)}</b><small>${esc(kind(r))}${r.note?' · '+esc(r.note):''}</small></span></a></li>`).join('')+'</ol>';
+ if(q.length===4){$('logo4').innerHTML=q.map(r=>`<a href="${esc(r.link||'#')}" target="_blank" rel="noopener" title="${esc(r.title)} (${esc(r.year)})"><img src="${src(r.cover)}" loading="lazy" width="600" height="600" alt="${esc(r.title)} EP cover (${esc(r.year)}), one quarter of the ETA logo"></a>`).join('');
   $('logo-cap').textContent='Put the four EPs together and you get the full ETA star and skull logo: '+q.map(r=>r.title).join(', ')+'.';}
- else $('logo4').parentElement.style.display='none';
- $('eps-other').innerHTML=rs.filter(r=>r.type==='ep'&&!q.includes(r)).sort((a,b)=>b.year-a.year).map(card).join('');
-}).catch(()=>fail('albums','Discography'));
+ else $('logo-box').style.display='none';
+}).catch(()=>fail('discography','Discography'));
 
 load('news').then(ns=>{ns.sort((a,b)=>String(b.date).localeCompare(String(a.date)));
  $('news-list').innerHTML=ns.length?ns.map(n=>`<article class="post">${n.image?`<img src="${src(n.image)}" loading="lazy" alt="${esc(n.title)}">`:''}<div class="post-body"><p class="post-date">${fmtDate(n.date)}</p><h3>${esc(n.title)}</h3><div class="post-text">${n.body||''}</div>${n.url?`<p class="post-link"><a href="${esc(n.url)}" target="_blank" rel="noopener">View on Facebook</a></p>`:''}</div></article>`).join(''):'<p class="sub">No news yet.</p>';
