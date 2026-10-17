@@ -168,7 +168,6 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--b);outline-offset:2
 .sftb-f select,.sftb-f input,.sftb-lq input{font:inherit;font-size:1rem;text-transform:none;background:#0b0b0d;color:#fff;border:1px solid #555;border-radius:4px;padding:.4rem .45rem;min-height:2.5rem}
 .sftb-f select{min-width:6rem}.sftb-f input,.sftb-lq input{width:4.2rem}
 .sftb-add{border:0;cursor:pointer;font:inherit;font-weight:800;font-size:.85rem}
-.sftb-status{min-height:1.6em;margin:1rem 0 0;color:var(--b);font-weight:700}
 .sftb-cart{background:var(--p);border-top:4px solid var(--b);padding:1.2rem;margin-top:.6rem;max-width:44rem}
 .sftb-cart h4{font-family:Impact,"Arial Black",sans-serif;text-transform:uppercase;letter-spacing:1px;font-size:1.25rem;margin:0 0 .6rem}
 .sftb-empty{color:#aaa}
@@ -192,3 +191,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--b);outline-offset:2
 .sftb-thanks[hidden]{display:none}
 .sftb-custom{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .9rem;margin:1.4rem 0 0;font-weight:700}
 .sftb-custom .btn.sm{margin-top:0}
+.sftb-added{margin:.45rem 0 0;font-size:.85rem;font-weight:700;color:var(--b)}
+.sftb-added.bad{color:#ff7a7a}
+.sftb-added[hidden]{display:none}
+.sftb-grid+.vh+.sftb-cart{margin-top:1.4rem}

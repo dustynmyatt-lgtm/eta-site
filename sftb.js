@@ -55,6 +55,13 @@ function shipFor(lines){
 }
 function total(){ return subtotal() + shipFor(cart); }
 function count(){ return cart.reduce(function(s,l){ return s + l.qty; }, 0); }
+// Visible confirmation right under the card's Add button (screen readers get the live region instead).
+function flash(card, msg, bad){
+ var n = card.querySelector('.sftb-added');
+ if(!n){ n = document.createElement('p'); n.className = 'sftb-added'; n.setAttribute('aria-hidden', 'true'); card.appendChild(n); }
+ clearTimeout(n._t); n.textContent = msg; n.classList.toggle('bad', !!bad); n.hidden = false;
+ if(!bad) n._t = setTimeout(function(){ n.hidden = true; }, 4000);
+}
 function say(msg){ var s = $('sftb-status'); s.textContent = ''; setTimeout(function(){ s.textContent = msg; }, 30); }
 
 function render(){
@@ -105,11 +112,12 @@ root.querySelectorAll('.sftb-item').forEach(function(card){
  card.querySelector('.sftb-add').addEventListener('click', function(){
   var id = card.getAttribute('data-id'), c = CAT[id]; if(!c) return;
   var sel = card.querySelector('select[name=opt]'), opt = sel ? sel.value : '';
-  if(c.opts && c.opts.indexOf(opt) < 0){ say('Please choose a ' + c.opt.toLowerCase() + ' for the ' + c.name + '.'); sel.focus(); return; }
+  if(c.opts && c.opts.indexOf(opt) < 0){ say('Please choose a ' + c.opt.toLowerCase() + ' for the ' + c.name + '.'); flash(card, 'Choose a ' + c.opt.toLowerCase() + ' first.', true); sel.focus(); return; }
   var qi = card.querySelector('input[name=qty]'), q = Math.min(MAXQ, Math.max(1, parseInt(qi.value, 10) || 1)); qi.value = q;
   var line = cart.filter(function(l){ return l.id === id && (l.opt || '') === opt; })[0];
   if(line) line.qty = Math.min(MAXQ, line.qty + q); else cart.push({id:id, opt:opt, qty:q});
   save(); render();
+  flash(card, '\u2713 Added to cart');
   say('Added ' + q + ' x ' + (c.opt ? c.name + ' (' + c.opt + ' ' + opt + ')' : c.name) + ' to your cart. ' + count() + ' item' + (count() === 1 ? '' : 's') + ', total ' + money(total()) + '.');
  });
 });
