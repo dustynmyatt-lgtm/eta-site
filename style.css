@@ -16,6 +16,7 @@ section{padding:3.5rem 1rem;max-width:1100px;margin:auto}h2{font-size:2.4rem;col
 .d{font-weight:800;color:var(--b);min-width:7rem}.badge{margin-left:auto;background:var(--b);color:#000;padding:.1rem .5rem;font-weight:800}.sub,.inf{color:#bbb}.mail{margin:1rem 0;font-size:1.2rem}
 footer{text-align:center;padding:2rem 1rem;border-top:3px solid var(--a);color:#888}.soc{display:flex;justify-content:center;gap:1.2rem;margin-bottom:.6rem;flex-wrap:wrap}.soc a{display:inline-flex;align-items:center;gap:.35rem;text-decoration:none;color:var(--b);font-weight:700}.soc a:hover{color:#fff}.soc .si{flex:none;vertical-align:middle}.contact-soc{justify-content:flex-start;margin-top:1.2rem}
 @media(min-width:760px){#menu{display:none}nav{display:flex;position:static;flex-direction:row;background:none}.grid{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:760px) and (max-width:899.98px){nav a{padding:.8rem .6rem}}
 .btn.sm{padding:.5rem 1rem;font-size:.85rem;margin-top:.5rem}.btn.dis{background:#444;cursor:not-allowed}
 @media(min-width:760px){#merch .grid{grid-template-columns:repeat(5,1fr)}}
 .hero{background:linear-gradient(180deg,#0b0b0dcc,#0b0b0dee 85%,#0b0b0d),radial-gradient(circle at 70% 30%,#ff2a2a40,transparent 60%),url(img/hero.webp) center/cover}
