@@ -18,17 +18,20 @@ const cases = [
   ['only tins', [L('tin', 2)], 5],
   ['1 tee + 1 tin', [L('skulltee'), L('tin')], 5],
   ['1 CD', [L('cd-salt')], 5],
-  ['3 CDs', [L('cd-salt'), L('cd-friction'), L('cd-knockout')], 7],
+  ['3 CDs', [L('cd-salt'), L('cd-friction'), L('cd-die-scared')], 7],
   ['3 CDs, one line', [L('cd-salt', 3)], 7],
-  ['1 vinyl + 3 CDs', [L('vinyl-knockout'), L('cd-salt'), L('cd-friction'), L('cd-knockout')], 5],
+  ['1 vinyl + 3 CDs', [L('vinyl-knockout'), L('cd-salt'), L('cd-friction'), L('cd-die-scared')], 5],
   ['1 shirt + 1 vinyl', [L('skulltee'), L('vinyl-knockout')], 7],
   ['2 CDs + 1 pick', [L('cd-salt'), L('cd-friction'), L('pick-gedy')], 6],
   ['1 shirt + 2 CDs', [L('ringer'), L('cd-salt'), L('cd-friction')], 5],
-  ['vinyl + 2 CDs + 1 shirt (PayPal test cart)', [L('vinyl-knockout'), L('cd-knockout'), L('cd-digital-toys'), L('skulltee')], 7],
+  ['vinyl + 2 CDs + 1 shirt (PayPal test cart)', [L('vinyl-knockout'), L('cd-digital-toys'), L('cd-salt'), L('skulltee')], 7],
 ];
 let fail = 0;
 for (const [name, lines, want] of cases) { const got = shipFor(lines); const ok = got === want; if (!ok) fail++; console.log((ok ? 'PASS' : 'FAIL') + '  ' + name + ': ' + got + (ok ? '' : ' (want ' + want + ')')); }
 const bad = Object.values(CAT).filter(c => !['big', 'cd', 'none'].includes(c.ship)).map(c => c.id);
 if (bad.length) { fail++; console.log('FAIL  items without a valid ship class: ' + bad.join(', ')); }
 console.log(fail ? fail + ' failed' : 'all ' + cases.length + ' cases passed');
+if (CAT['cd-knockout']) { fail++; console.log('FAIL  Knockout must be vinyl only (cd-knockout exists)'); }
+const sub = [L('vinyl-knockout'), L('cd-digital-toys'), L('cd-salt'), L('skulltee')].reduce((s, l) => s + CAT[l.id].price * l.qty, 0);
+console.log((sub === 72 ? 'PASS' : 'FAIL') + '  PayPal test cart subtotal: ' + sub + ', total ' + (sub + 7)); if (sub !== 72) fail++;
 process.exit(fail ? 1 : 0);

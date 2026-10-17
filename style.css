@@ -200,3 +200,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--b);outline-offset:2
 .sftb-music-grid .pimg{object-fit:cover;background:#222}
 @media(min-width:760px){#merch .sftb-music-grid{grid-template-columns:repeat(4,1fr)}}
 @media(min-width:1000px){#merch .sftb-music-grid{grid-template-columns:repeat(5,1fr)}}
+.sftb-eplogo{max-width:520px}
+.sftb-logo4{display:grid;grid-template-columns:1fr 1fr;margin-top:1.5rem;line-height:0}
+.sftb-logo4 img{display:block;width:100%;height:auto}
+#merch .sftb-logo-buy{grid-template-columns:1fr 1fr;margin-top:1rem}
