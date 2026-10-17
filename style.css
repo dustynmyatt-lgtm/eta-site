@@ -153,3 +153,38 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--b);outline-offset:2
 .gal-btn:hover,.gal-btn:focus-visible{background:var(--a);color:#fff;outline:none}.gal-btn:disabled{opacity:0;pointer-events:none}
 .gal-prev{left:.5rem}.gal-next{right:.5rem}.no-scroll .gal-btn{display:none}}
 @media(prefers-reduced-motion:reduce){.gallery{scroll-behavior:auto}}
+/* Straight From the Band (band-shipped merch + cart) */
+.half-h{font-size:1.6rem;color:var(--b);margin:1.6rem 0 .4rem}
+.sftb{margin-top:3rem;padding-top:1.5rem;border-top:2px dashed #333}
+.sftb-lede{max-width:44rem;margin:.4rem 0}
+.sftb-note{font-size:.9rem;font-style:italic;margin:0 0 .5rem}
+.sftb-item .pimg{background:#fff;object-fit:contain}
+.sftb-item .pimg.dark{background:#000}
+.sftb-item:hover{transform:none}
+.sftb-item h3{font-size:1rem;margin:.2rem 0}
+.sftb-item .sub{color:#aaa;font-size:.9rem;margin:0 0 .4rem}
+.sftb-opts{display:flex;flex-wrap:wrap;gap:.5rem;margin:.2rem 0 .6rem}
+.sftb-f{display:flex;flex-direction:column;font-size:.8rem;font-weight:700;text-transform:uppercase;color:#ccc;gap:.2rem}
+.sftb-f select,.sftb-f input,.sftb-lq input{font:inherit;font-size:1rem;text-transform:none;background:#0b0b0d;color:#fff;border:1px solid #555;border-radius:4px;padding:.4rem .45rem;min-height:2.5rem}
+.sftb-f select{min-width:6rem}.sftb-f input,.sftb-lq input{width:4.2rem}
+.sftb-add{border:0;cursor:pointer;font:inherit;font-weight:800;font-size:.85rem}
+.sftb-status{min-height:1.6em;margin:1rem 0 0;color:var(--b);font-weight:700}
+.sftb-cart{background:var(--p);border-top:4px solid var(--b);padding:1.2rem;margin-top:.6rem;max-width:44rem}
+.sftb-cart h4{font-family:Impact,"Arial Black",sans-serif;text-transform:uppercase;letter-spacing:1px;font-size:1.25rem;margin:0 0 .6rem}
+.sftb-empty{color:#aaa}
+.sftb-lines{list-style:none;padding:0;margin:0}
+.sftb-lines li{display:grid;grid-template-columns:1fr auto auto;grid-template-areas:"n q p" "n r r";gap:.3rem .8rem;align-items:center;padding:.7rem 0;border-bottom:1px solid #2c2c33}
+.sftb-ln{grid-area:n;font-weight:700}.sftb-ln small{display:block;font-weight:400;color:#bbb;font-size:.85rem}
+.sftb-lq{grid-area:q}.sftb-lp{grid-area:p;font-weight:700;min-width:4.2rem;text-align:right}
+.sftb-rm{grid-area:r;justify-self:end;background:none;border:0;color:#ff7a7a;text-decoration:underline;cursor:pointer;font:inherit;font-size:.85rem;padding:.2rem 0}
+.sftb-sum{display:grid;grid-template-columns:1fr auto;gap:.3rem 1rem;margin:1rem 0}
+.sftb-sum dd{margin:0;text-align:right;font-weight:700}
+.sftb-sum .tot{font-size:1.2rem;color:var(--b);border-top:1px solid #444;padding-top:.4rem}
+.sftb-checkout{border:0;cursor:pointer;font:inherit;font-weight:800}
+.sftb-checkout:disabled{background:#444;cursor:not-allowed}
+.sftb-shiprule{margin:.9rem 0 0;font-size:.9rem}
+.sftb-pay{margin:.6rem 0 0;font-size:.9rem}
+.sftb-pill{position:fixed;right:1rem;bottom:1rem;z-index:50;background:var(--b);color:#000;font-weight:800;padding:.6rem 1rem;border-radius:999px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.5)}
+.sftb-pill[hidden]{display:none}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.sftb button:focus-visible,.sftb select:focus-visible,.sftb input:focus-visible,.sftb-pill:focus-visible{outline:3px solid var(--b);outline-offset:2px}
