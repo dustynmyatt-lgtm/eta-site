@@ -205,12 +205,18 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--b);outline-offset:2
 .sftb-epset:hover{transform:none}
 .sftb-epset-head h3{font-size:1rem;margin:0 0 .2rem}
 .sftb-epset-head .sub{margin:0;font-size:.9rem}
-.sftb-logo4{display:grid;grid-template-columns:1fr 1fr;line-height:0;width:100%;max-width:340px;justify-self:center}
+.sftb-logo4{display:grid;grid-template-columns:1fr 1fr;gap:5px;line-height:0;width:100%;max-width:340px;justify-self:center}
 .sftb-logo4 img{display:block;width:100%;height:auto}
-.sftb-epset-buy{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:.6rem}
+.sftb-epset-buy{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:1fr 1fr;gap:.6rem}
 .sftb-tile{position:relative;display:flex;flex-direction:column;justify-content:center;padding:.7rem .8rem;background:rgba(255,255,255,.04);border-left:3px solid var(--b)}
 .sftb-tile h3{font-size:.95rem;margin:0}
-.sftb-tile .price{margin:.1rem 0 .35rem}
+.sftb-tile .price{margin:0}
+.sftb-tile-pr{display:flex;flex-wrap:wrap;align-items:center;gap:.1rem .7rem;margin:.1rem 0 .35rem}
+.sftb-tile-pr .sub{margin:0;font-size:.85rem}
+.sftb-quad{display:flex;align-items:center;gap:.35rem;margin:0;font-size:.85rem;line-height:1.3}
+.sftb-qi{display:grid;grid-template-columns:1fr 1fr;gap:1px;width:13px;height:13px;flex:none}
+.sftb-qi i{border:1px solid #888}
+.q-top-left i:nth-child(1),.q-top-right i:nth-child(2),.q-bottom-left i:nth-child(3),.q-bottom-right i:nth-child(4){background:var(--b);border-color:var(--b)}
 .sftb-tile-row{display:flex;flex-wrap:wrap;align-items:flex-end;gap:.5rem}
 .sftb-tile .btn{margin-top:0}
 .sftb-tile .sftb-added{margin:.4rem 0 0}

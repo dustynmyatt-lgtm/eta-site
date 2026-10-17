@@ -21,6 +21,7 @@ var SFTB_GROUPS = [
  {id:'ep-logo', layout:'ep-logo', heading:'The EP Set', note:'Put the four EPs together and you get the full ETA star and skull logo.'}
 ];
 var SFTB_QUADS = ['top-left','top-right','bottom-left','bottom-right'];
+function quadLabel(q){ return q.charAt(0).toUpperCase() + q.slice(1) + ' of logo'; } // 'top-left' -> 'Top-left of logo'
 
 // Items render inside their group in this order. Add an item = one entry here.
 //  id (unique, kept in saved carts), group, name (card + cart + PayPal), price (USD), ship ('big'|'cd'|'none'),
@@ -92,7 +93,7 @@ function load(){
 }
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(cart)); }catch(e){} }
 function cname(c){ return c.cartName || c.name; }
-function label(l){ var c = CAT[l.id]; return cname(c) + (c.opt ? ' - ' + c.opt + ' ' + l.opt : ''); }
+function label(l){ var c = CAT[l.id]; return cname(c) + (c.opt ? ' - ' + c.opt + ' ' + l.opt : '') + (c.quad ? ' - ' + quadLabel(c.quad) : ''); }
 function subtotal(){ return cart.reduce(function(s,l){ return s + CAT[l.id].price * l.qty; }, 0); }
 function total(){ return subtotal() + shipFor(cart); }
 function count(){ return cart.reduce(function(s,l){ return s + l.qty; }, 0); }
@@ -110,7 +111,7 @@ function render(){
  cart.forEach(function(l, i){
   var c = CAT[l.id], li = document.createElement('li');
   var name = document.createElement('span'); name.className = 'sftb-ln';
-  name.textContent = cname(c); if(c.opt){ var o = document.createElement('small'); o.textContent = c.opt + ': ' + l.opt; name.appendChild(o); }
+  name.textContent = cname(c); if(c.opt || c.quad){ var o = document.createElement('small'); o.textContent = c.opt ? c.opt + ': ' + l.opt : quadLabel(c.quad); name.appendChild(o); }
   var q = document.createElement('label'); q.className = 'sftb-lq';
   var qs = document.createElement('span'); qs.className = 'vh'; qs.textContent = 'Quantity for ' + label(l);
   var qi = document.createElement('input'); qi.type = 'number'; qi.min = 1; qi.max = MAXQ; qi.value = l.qty; qi.inputMode = 'numeric';
@@ -168,7 +169,8 @@ function epLogoHTML(g, items){
    return '<img src="' + esc(it.img) + '" width="' + it.w + '" height="' + it.h + '" loading="lazy" alt="' + esc(it.alt + ', ' + it.quad.replace('-', ' ') + ' quarter of the ETA logo') + '">';
   }).join('') + '</div>' +
   '<div class="sftb-epset-buy">' + q.map(function(it){
-   return '<div class="sftb-item sftb-tile" data-id="' + esc(it.id) + '"><h3>' + esc(it.name) + '</h3><p class="price">' + whole(it.price) + '</p>' +
+   return '<div class="sftb-item sftb-tile" data-id="' + esc(it.id) + '"><h3>' + esc(it.name) + '</h3><div class="sftb-tile-pr"><p class="price">' + whole(it.price) + '</p><p class="sub">' + esc(it.desc) + '</p>' +
+    '<p class="sub sftb-quad"><span class="sftb-qi q-' + esc(it.quad) + '" aria-hidden="true"><i></i><i></i><i></i><i></i></span>' + esc(quadLabel(it.quad)) + '</p></div>' +
     '<div class="sftb-tile-row"><label class="sftb-f"><span>Qty</span><input type="number" name="qty" min="1" max="' + MAXQ + '" value="1" inputmode="numeric"></label>' +
     '<button type="button" class="btn sm sftb-add">Add to cart</button></div></div>';
   }).join('') + '</div></div>';
