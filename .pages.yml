@@ -45,6 +45,8 @@ content:
       - { name: image, label: Photo, type: image, required: true }
       - { name: caption, label: Caption, type: string }
       - { name: alt, label: "Describe the photo (for screen readers)", type: string }
+      - { name: width, label: "Photo width in pixels (optional, helps the page load smoothly)", type: number }
+      - { name: height, label: "Photo height in pixels (optional)", type: number }
 
   - name: members
     label: Band Members

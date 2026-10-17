@@ -34,7 +34,23 @@ load('news').then(ns=>{ns.sort((a,b)=>String(b.date).localeCompare(String(a.date
  $('news-list').innerHTML=ns.length?ns.map(n=>`<article class="post">${n.image?`<img src="${src(n.image)}" loading="lazy" alt="${esc(n.title)}">`:''}<div class="post-body"><p class="post-date">${fmtDate(n.date)}</p><h3>${esc(n.title)}</h3><div class="post-text">${n.body||''}</div>${n.url?`<p class="post-link"><a href="${esc(n.url)}" target="_blank" rel="noopener">View on Facebook</a></p>`:''}</div></article>`).join(''):'<p class="sub">No news yet.</p>';
 }).catch(()=>fail('news-list','News'));
 
-load('gallery').then(gs=>{$('gallery-grid').innerHTML=gs.map(g=>`<figure><a href="${src(g.image)}" target="_blank" rel="noopener"><img src="${src(g.image)}" loading="lazy" alt="${esc(g.alt||g.caption)}"></a>${g.caption?`<figcaption>${esc(g.caption)}</figcaption>`:''}</figure>`).join('')}).catch(()=>fail('gallery-grid','Photos'));
+load('gallery').then(gs=>{const dim=g=>(+g.width>0&&+g.height>0)?` width="${+g.width}" height="${+g.height}"`:'';$('gallery-grid').innerHTML=gs.map(g=>`<figure><a href="${src(g.image)}" target="_blank" rel="noopener"><img src="${src(g.image)}" loading="lazy" decoding="async"${dim(g)} alt="${esc(g.alt||g.caption)}"></a>${g.caption?`<figcaption>${esc(g.caption)}</figcaption>`:''}</figure>`).join('');galleryScroller()}).catch(()=>fail('gallery-grid','Photos'));
+// Photo gallery: horizontal scroller. Native swipe/scroll + CSS scroll-snap; arrow buttons and keyboard arrows step one photo.
+function galleryScroller(){
+ const g=$('gallery-grid'),w=g&&g.parentElement;if(!w)return;
+ const prev=w.querySelector('.gal-prev'),next=w.querySelector('.gal-next');
+ const rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)');
+ const items=()=>[...g.children];
+ const update=()=>{const max=g.scrollWidth-g.clientWidth;const none=max<=2;w.classList.toggle('no-scroll',none);if(prev)prev.disabled=none||g.scrollLeft<=2;if(next)next.disabled=none||g.scrollLeft>=max-2};
+ const step=dir=>{const it=items();if(!it.length)return;const pad=parseFloat(getComputedStyle(g).scrollPaddingLeft)||0,x=g.scrollLeft+pad;
+  let i=it.findIndex(el=>el.offsetLeft>=x-2);if(i<0)i=it.length-1;
+  const t=dir>0?it[Math.min(i+1,it.length-1)]:it[Math.max(i-1,0)];
+  g.scrollTo({left:Math.max(t.offsetLeft-pad,0),behavior:rm&&rm.matches?'auto':'smooth'})};
+ if(prev)prev.onclick=()=>step(-1);if(next)next.onclick=()=>step(1);
+ g.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();step(e.key==='ArrowRight'?1:-1)}});
+ let raf=0;g.addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(()=>{raf=0;update()})},{passive:true});
+ window.addEventListener('resize',update);g.querySelectorAll('img').forEach(im=>im.complete||im.addEventListener('load',update,{once:true}));update();
+}
 
 load('gigs').then(gs=>{const up=$('up'),pa=$('past');gs.sort((a,b)=>String(a.date).localeCompare(String(b.date)));
  const li=x=>`<li class="${x.tba?'tba':''}"><span class="d">${esc(x.display||fmtDate(x.date))}</span><span class="v"><b>${esc(x.venue)}</b>${x.city?' · '+esc(x.city):''}${x.with?'<br><small>with '+esc(x.with)+'</small>':''}${x.note?'<br><small>'+esc(x.note)+'</small>':''}</span>${x.tba?'<span class="badge">TBA</span>':''}</li>`;
