@@ -87,11 +87,16 @@ function render(){
  $('sftb-checkout').disabled = empty;
  $('sftb-count').textContent = count(); $('sftb-pill').hidden = empty || cartInView;
 }
-// The floating "Cart (n)" shortcut hides while the cart panel itself is on screen.
-var cartInView = false;
-if('IntersectionObserver' in window) new IntersectionObserver(function(es){
- cartInView = es[0].isIntersecting; $('sftb-pill').hidden = !cart.length || cartInView;
-}).observe($('sftb-cart'));
+// The floating "Cart (n)" shortcut hides while the cart panel or the custom-order line is on screen.
+var cartInView = false, seen = {};
+if('IntersectionObserver' in window){
+ var io = new IntersectionObserver(function(es){
+  es.forEach(function(e){ seen[e.target.className] = e.isIntersecting; });
+  cartInView = Object.keys(seen).some(function(k){ return seen[k]; });
+  $('sftb-pill').hidden = !cart.length || cartInView;
+ });
+ io.observe($('sftb-cart')); var cu = root.querySelector('.sftb-custom'); if(cu) io.observe(cu);
+}
 
 var whole = function(n){ return '$' + (n % 1 ? n.toFixed(2) : n); };
 root.querySelectorAll('.sftb-ship-base').forEach(function(e){ e.textContent = whole(SFTB_SHIP_BASE); });
