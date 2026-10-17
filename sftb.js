@@ -7,8 +7,9 @@
 var SFTB_SHIP_BASE = 5;
 var SFTB_SHIP_PER_EXTRA_BIG = 2;
 var PAYPAL_URL = 'https://www.paypal.com/cgi-bin/webscr';
-var PAYPAL_BUSINESS = 'easttexasadrenaline@yahoo.com';
-var RETURN_URL = 'https://easttexasadrenaline.com/merch.html';
+var PAYPAL_BUSINESS = 'doandjb@sbcglobal.net';
+var RETURN_URL = 'https://easttexasadrenaline.com/merch.html?order=thanks'; // after payment
+var CANCEL_URL = 'https://easttexasadrenaline.com/merch.html';
 var KEY = 'eta_sftb_cart', MAXQ = 10;
 // Catalog is the source of truth for names and prices (stored cart only keeps id, option, qty).
 var CAT = {
@@ -23,6 +24,15 @@ var root = document.getElementById('straight-from-band'); if(!root) return;
 var $ = function(id){return document.getElementById(id)};
 var money = function(n){return '$' + n.toFixed(2)};
 var cart = load();
+// Back from PayPal after paying: clear the cart, thank the fan, tidy the URL.
+var thanked = false;
+try{
+ if(new URLSearchParams(location.search).get('order') === 'thanks'){
+  thanked = true; cart = []; try{ localStorage.removeItem(KEY); }catch(e){}
+  var t = $('sftb-thanks'); if(t) t.hidden = false;
+  if(history.replaceState) history.replaceState(null, '', location.pathname + location.hash);
+ }
+}catch(e){}
 
 function load(){
  try{
@@ -104,7 +114,7 @@ $('sftb-checkout').addEventListener('click', function(){
  var f = document.createElement('form'); f.method = 'post'; f.action = PAYPAL_URL; f.style.display = 'none';
  var add = function(n, v){ var i = document.createElement('input'); i.type = 'hidden'; i.name = n; i.value = v; f.appendChild(i); };
  add('cmd', '_cart'); add('upload', '1'); add('business', PAYPAL_BUSINESS); add('currency_code', 'USD'); add('charset', 'utf-8');
- add('no_shipping', '2'); add('return', RETURN_URL); add('cancel_return', RETURN_URL);
+ add('no_shipping', '2'); add('return', RETURN_URL); add('cancel_return', CANCEL_URL);
  add('handling_cart', shipFor(cart).toFixed(2));
  cart.forEach(function(l, i){ var n = i + 1;
   add('item_name_' + n, label(l)); add('amount_' + n, CAT[l.id].price.toFixed(2)); add('quantity_' + n, String(l.qty));
@@ -112,4 +122,5 @@ $('sftb-checkout').addEventListener('click', function(){
  document.body.appendChild(f); f.submit();
 });
 render();
+if(thanked) setTimeout(function(){ root.scrollIntoView(); }, 50);
 })();

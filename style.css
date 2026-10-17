@@ -188,3 +188,5 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--b);outline-offset:2
 .sftb-pill[hidden]{display:none}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .sftb button:focus-visible,.sftb select:focus-visible,.sftb input:focus-visible,.sftb-pill:focus-visible{outline:3px solid var(--b);outline-offset:2px}
+.sftb-thanks{margin:.4rem 0 .8rem;padding:.8rem 1rem;border-left:4px solid var(--b);background:rgba(255,212,0,.08);font-weight:700;color:var(--b)}
+.sftb-thanks[hidden]{display:none}
