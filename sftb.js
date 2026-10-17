@@ -16,10 +16,9 @@ var SFTB_SHIP_PER_EXTRA_CD = 1;
 var SFTB_GROUPS = [
  {id:'merch', heading:''},
  {id:'music', heading:'Physical CDs & Vinyl', cls:'sftb-music-grid'},
- // The four logo EPs: covers join into the ETA star-and-skull logo (same quadrants as the front page),
- // with a matching 2x2 buy grid under it. Items in this group need a quad field.
- {id:'ep-logo', layout:'ep-logo', note:'Put the four EPs together and you get the full ETA star and skull logo.'},
- {id:'cds', cls:'sftb-music-grid'}
+ // The four logo EPs, shown as one panel: covers join into the ETA star-and-skull logo (same quadrants
+ // as the front page) beside a matching 2x2 grid of buy tiles. Items in this group need a quad field.
+ {id:'ep-logo', layout:'ep-logo', heading:'The EP Set', note:'Put the four EPs together and you get the full ETA star and skull logo.'}
 ];
 var SFTB_QUADS = ['top-left','top-right','bottom-left','bottom-right'];
 
@@ -46,10 +45,10 @@ var SFTB_ITEMS = [
  {id:'cd-salt', group:'ep-logo', quad:'bottom-right', name:'Salt (CD)', price:6, ship:'cd', img:'img/merch/band/covers/salt.webp', w:600, h:600, alt:'Salt EP cover', desc:'EP · 2024'},
  {id:'cd-1000-miles', group:'ep-logo', quad:'top-right', name:'1000 Miles (CD)', price:6, ship:'cd', img:'img/merch/band/covers/1000-miles.webp', w:600, h:600, alt:'1000 Miles EP cover', desc:'EP · 2023'},
  {id:'cd-die-scared', group:'ep-logo', quad:'top-left', name:'Die Scared (CD)', price:6, ship:'cd', img:'img/merch/band/covers/die-scared.webp', w:600, h:600, alt:'Die Scared EP cover', desc:'EP · 2022'},
- {id:'cd-flossing-of-society', group:'cds', name:'Flossing of Society (CD)', price:6, ship:'cd', img:'img/merch/band/covers/flossing-of-society.webp', w:600, h:600, alt:'Flossing of Society album cover', desc:'Album · 2021'},
- {id:'cd-friction', group:'cds', name:'Friction (CD)', price:6, ship:'cd', img:'img/merch/band/covers/friction.webp', w:600, h:600, alt:'Friction EP cover', desc:'EP · 2019'},
- {id:'cd-built-to-last', group:'cds', name:'Built to Last (CD)', price:6, ship:'cd', img:'img/merch/band/covers/built-to-last.webp', w:600, h:600, alt:'Built to Last album cover', desc:'Album · 2018'},
- {id:'cd-east-texas-adrenaline', group:'cds', name:'East Texas Adrenaline (CD)', price:6, ship:'cd', img:'img/merch/band/covers/east-texas-adrenaline.webp', w:600, h:600, alt:'East Texas Adrenaline album cover', desc:'Album · 2017'}
+ {id:'cd-flossing-of-society', group:'music', name:'Flossing of Society (CD)', price:6, ship:'cd', img:'img/merch/band/covers/flossing-of-society.webp', w:600, h:600, alt:'Flossing of Society album cover', desc:'Album · 2021'},
+ {id:'cd-friction', group:'music', name:'Friction (CD)', price:6, ship:'cd', img:'img/merch/band/covers/friction.webp', w:600, h:600, alt:'Friction EP cover', desc:'EP · 2019'},
+ {id:'cd-built-to-last', group:'music', name:'Built to Last (CD)', price:6, ship:'cd', img:'img/merch/band/covers/built-to-last.webp', w:600, h:600, alt:'Built to Last album cover', desc:'Album · 2018'},
+ {id:'cd-east-texas-adrenaline', group:'music', name:'East Texas Adrenaline (CD)', price:6, ship:'cd', img:'img/merch/band/covers/east-texas-adrenaline.webp', w:600, h:600, alt:'East Texas Adrenaline album cover', desc:'Album · 2017'}
 ];
 var CAT = {};
 SFTB_ITEMS.forEach(function(it){ CAT[it.id] = it; });
@@ -159,19 +158,26 @@ function cardHTML(it, noImg){
   '<button type="button" class="btn sm sftb-add">Add to cart</button></div>';
 }
 var whole = function(n){ return '$' + (n % 1 ? n.toFixed(2) : n); };
-// 'ep-logo' layout: the covers join into the logo, with the usual cards (minus image) in the same 2x2 positions below.
+// 'ep-logo' layout: one card-style panel, logo (covers edge to edge) beside 2x2 buy tiles in the same positions.
 function epLogoHTML(g, items){
  var q = SFTB_QUADS.map(function(p){ return items.filter(function(it){ return it.quad === p; })[0]; }).filter(Boolean);
- return '<div class="sftb-eplogo"><div class="sftb-logo4">' + q.map(function(it){
+ var hid = 'sftb-g-' + esc(g.id);
+ return '<div class="card sftb-epset" role="group" aria-labelledby="' + hid + '">' +
+  '<div class="sftb-epset-head"><h3 id="' + hid + '">' + esc(g.heading || '') + '</h3>' + (g.note ? '<p class="sub">' + esc(g.note) + '</p>' : '') + '</div>' +
+  '<div class="sftb-logo4">' + q.map(function(it){
    return '<img src="' + esc(it.img) + '" width="' + it.w + '" height="' + it.h + '" loading="lazy" alt="' + esc(it.alt + ', ' + it.quad.replace('-', ' ') + ' quarter of the ETA logo') + '">';
-  }).join('') + '</div>' + (g.note ? '<p class="sub">' + esc(g.note) + '</p>' : '') +
-  '<div class="grid shop-grid sftb-grid sftb-logo-buy">' + q.map(function(it){ return cardHTML(it, true); }).join('') + '</div></div>';
+  }).join('') + '</div>' +
+  '<div class="sftb-epset-buy">' + q.map(function(it){
+   return '<div class="sftb-item sftb-tile" data-id="' + esc(it.id) + '"><h3>' + esc(it.name) + '</h3><p class="price">' + whole(it.price) + '</p>' +
+    '<div class="sftb-tile-row"><label class="sftb-f"><span>Qty</span><input type="number" name="qty" min="1" max="' + MAXQ + '" value="1" inputmode="numeric"></label>' +
+    '<button type="button" class="btn sm sftb-add">Add to cart</button></div></div>';
+  }).join('') + '</div></div>';
 }
 var holder = $('sftb-groups');
 if(holder) holder.innerHTML = SFTB_GROUPS.map(function(g){
  var items = SFTB_ITEMS.filter(function(it){ return it.group === g.id; }); if(!items.length) return '';
  var head = g.heading ? '<h4 class="sftb-group-h" id="sftb-g-' + esc(g.id) + '">' + esc(g.heading) + '</h4>' : '';
- if(g.layout === 'ep-logo') return head + epLogoHTML(g, items);
+ if(g.layout === 'ep-logo') return epLogoHTML(g, items);
  return head + '<div class="grid shop-grid sftb-grid' + (g.cls ? ' ' + esc(g.cls) : '') + '"' + (g.heading ? ' role="group" aria-labelledby="sftb-g-' + esc(g.id) + '"' : '') + '>' +
   items.map(function(it){ return cardHTML(it); }).join('') + '</div>';
 }).join('');

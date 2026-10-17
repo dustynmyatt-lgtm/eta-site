@@ -200,7 +200,19 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--b);outline-offset:2
 .sftb-music-grid .pimg{object-fit:cover;background:#222}
 @media(min-width:760px){#merch .sftb-music-grid{grid-template-columns:repeat(4,1fr)}}
 @media(min-width:1000px){#merch .sftb-music-grid{grid-template-columns:repeat(5,1fr)}}
-.sftb-eplogo{max-width:520px}
-.sftb-logo4{display:grid;grid-template-columns:1fr 1fr;margin-top:1.5rem;line-height:0}
+/* EP set panel (layout:'ep-logo') */
+.sftb-epset{margin-top:1rem;display:grid;gap:1rem}
+.sftb-epset:hover{transform:none}
+.sftb-epset-head h3{font-size:1rem;margin:0 0 .2rem}
+.sftb-epset-head .sub{margin:0;font-size:.9rem}
+.sftb-logo4{display:grid;grid-template-columns:1fr 1fr;line-height:0;width:100%;max-width:340px;justify-self:center}
 .sftb-logo4 img{display:block;width:100%;height:auto}
-#merch .sftb-logo-buy{grid-template-columns:1fr 1fr;margin-top:1rem}
+.sftb-epset-buy{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:.6rem}
+.sftb-tile{position:relative;display:flex;flex-direction:column;justify-content:center;padding:.7rem .8rem;background:rgba(255,255,255,.04);border-left:3px solid var(--b)}
+.sftb-tile h3{font-size:.95rem;margin:0}
+.sftb-tile .price{margin:.1rem 0 .35rem}
+.sftb-tile-row{display:flex;flex-wrap:wrap;align-items:flex-end;gap:.5rem}
+.sftb-tile .btn{margin-top:0}
+.sftb-tile .sftb-added{margin:.4rem 0 0}
+@media(min-width:760px){.sftb-epset{grid-template-columns:300px 1fr;grid-template-areas:"head head" "logo buy"}
+.sftb-epset-head{grid-area:head}.sftb-logo4{grid-area:logo;max-width:none}.sftb-epset-buy{grid-area:buy;height:300px}.sftb-tile .sftb-added{position:absolute;top:.7rem;right:.8rem;margin:0}}
